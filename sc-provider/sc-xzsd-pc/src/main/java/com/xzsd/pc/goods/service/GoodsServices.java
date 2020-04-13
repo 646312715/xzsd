@@ -26,7 +26,7 @@ public class GoodsServices {
      * @param goodsInfo
      * @return
      * @Author feng
-     * @Date 2020-03-21
+     * @Date 2020-03-27
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addGoods (GoodsInfo goodsInfo){
@@ -35,7 +35,7 @@ public class GoodsServices {
         if (count != 0){
             return AppResponse.bizError("已存在商品，请重新输入！");
         }
-        goodsInfo.setGoodsStateId(3);
+        goodsInfo.setGoodsStateId("3");
         goodsInfo.setGoodsId(StringUtil.getCommonCode(2));
         goodsInfo.setIsDelete(0);
         goodsInfo.setVersion("0");
@@ -112,6 +112,11 @@ public class GoodsServices {
     public AppResponse deleteGoods(String userId,String goodsId){
         GoodsInfo goodsInfo = goodsDao.getGoods(goodsId);
         List<String> listCode = Arrays.asList(goodsId.split(","));
+        // 检查是否有轮播图
+         List<String> goodsNames = goodsDao.getGoodsInSlideshowHome(listCode);
+         if (goodsNames.size()!=0){
+             return AppResponse.bizError("商品"+goodsNames+"含有轮播图,无法删除");
+         }
         // 删除商品
         int count = goodsDao.deleteGoods(listCode,userId);
         AppResponse appResponse = AppResponse.success("删除成功！");

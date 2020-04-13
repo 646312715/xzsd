@@ -38,7 +38,12 @@ public class SlideshowHomeInfo {
     /**
      * 轮播图状态编号
      */
-    private int slideshowStateId;
+    private String slideshowStateId;
+
+    /**
+     * 商品名字
+     */
+    private String goodsName;
 
     /**
      * 页码
@@ -133,11 +138,11 @@ public class SlideshowHomeInfo {
         this.goodsId = goodsId;
     }
 
-    public int getSlideshowStateId() {
+    public String getSlideshowStateId() {
         return slideshowStateId;
     }
 
-    public void setSlideshowStateId(int slideshowStateId) {
+    public void setSlideshowStateId(String slideshowStateId) {
         this.slideshowStateId = slideshowStateId;
     }
 
@@ -213,25 +218,5 @@ public class SlideshowHomeInfo {
         this.oldVersion = oldVersion;
     }
 
-    @Override
-    public String toString() {
-        return "SlideshowHomeInfo{" +
-                "slideshowId='" + slideshowId + '\'' +
-                ", slideshowNum=" + slideshowNum +
-                ", slideshowPath='" + slideshowPath + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
-                ", goodsId='" + goodsId + '\'' +
-                ", slideshowStateId=" + slideshowStateId +
-                ", pageSize=" + pageSize +
-                ", pageNum=" + pageNum +
-                ", isDelete=" + isDelete +
-                ", createTime='" + createTime + '\'' +
-                ", createUser='" + createUser + '\'' +
-                ", updateTime='" + updateTime + '\'' +
-                ", updateUser='" + updateUser + '\'' +
-                ", version='" + version + '\'' +
-                ", oldVersion='" + oldVersion + '\'' +
-                '}';
-    }
+
 }

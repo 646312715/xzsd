@@ -25,6 +25,7 @@ import javax.annotation.Resource;
 @EnableTransactionManagement
 @MapperScan("com.xzsd.pc.*.dao")
 @EnableRedisHttpSession
+
 public class ScXzsdPcApplication {
 
     @Resource

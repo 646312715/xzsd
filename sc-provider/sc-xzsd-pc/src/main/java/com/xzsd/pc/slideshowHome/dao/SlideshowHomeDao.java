@@ -2,6 +2,8 @@ package com.xzsd.pc.slideshowHome.dao;
 
 import com.xzsd.pc.goods.entity.GoodsInfo;
 import com.xzsd.pc.slideshowHome.entity.SlideshowHomeInfo;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.security.access.method.P;
 
 import java.util.List;
 
@@ -43,7 +45,7 @@ public interface SlideshowHomeDao {
      * @param userId
      * @return
      */
-    int deleteSlideshowHome(List<String> slideshowIds,String userId);
+    int deleteSlideshowHome(@Param("slideshowIds") List<String> slideshowIds,@Param("userId") String userId);
 
     /**
      * 轮播图排序
@@ -53,7 +55,7 @@ public interface SlideshowHomeDao {
     int getSlideshowNum(int slideshowNum);
 
     /**
-     * 轮播图响应商品查重
+     * 轮播图响应商品和排序查重
      * @param goodsId
      * @return
      */

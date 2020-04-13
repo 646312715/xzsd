@@ -66,11 +66,10 @@ public interface GoodsDao {
 //     */
 //    int findVersion(GoodsInfo goodsInfo);
 
+
     /**
-     * 增加历史记录
-     * @Param historyId
-     * @Param message
+     * 查询商品是否有轮播图
      */
-    int addHistory(@Param("message") String message, @Param("historyId") String historyId);
+    List<String> getGoodsInSlideshowHome(@Param("listCode")List<String> listCode);
 
 }

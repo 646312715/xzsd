@@ -52,7 +52,7 @@ public class GoodsInfo {
     /**
      * 商品状态 0在售 1下架 2未发布
      */
-    private int goodsStateId;
+    private String goodsStateId;
     /**
      * 上架时间
      */
@@ -214,12 +214,28 @@ public class GoodsInfo {
         this.goodsDescribe = goodsDescribe;
     }
 
-    public int getGoodsStateId() {
+    public String getTwoClassifyName() {
+        return twoClassifyName;
+    }
+
+    public void setTwoClassifyName(String twoClassifyName) {
+        this.twoClassifyName = twoClassifyName;
+    }
+
+    public String getGoodsStateId() {
         return goodsStateId;
     }
 
-    public void setGoodsStateId(int goodsStateId) {
+    public void setGoodsStateId(String goodsStateId) {
         this.goodsStateId = goodsStateId;
+    }
+
+    public String getOneClassifyName() {
+        return oneClassifyName;
+    }
+
+    public void setOneClassifyName(String oneClassifyName) {
+        this.oneClassifyName = oneClassifyName;
     }
 
     public String getGoodsShelfTime() {

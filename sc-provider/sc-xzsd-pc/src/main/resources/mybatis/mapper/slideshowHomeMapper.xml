@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.pc.slideshowHome.dao.SlideshowHomeDao">
-    <!--新增商品-->
+    <!--新增轮播图-->
     <insert id="addSlideshowHome" parameterType="com.xzsd.pc.slideshowHome.entity.SlideshowHomeInfo">
         insert into
         t_info_slideshow_home (
@@ -32,5 +32,82 @@
         #{version}
         );
     </insert>
+    <!--轮播图响应商品和排序查重-->
+    <select id="getGoodsCount" parameterType="java.lang.String" resultType="int">
+        select count(*)
+        from t_info_slideshow_home
+        where goods_id = #{goodsId};
+    </select>
+    <!--轮播图排序查重-->
+    <select id="getSlideshowNum" parameterType="int" resultType="int">
+        select count(*)
+        from t_info_slideshow_home
+        where slideshow_num = #{slideshowNum};
+    </select>
+    <!--分页查询接口-->
+    <select id="listSlideshowHome" parameterType="com.xzsd.pc.slideshowHome.entity.SlideshowHomeInfo" resultType="com.xzsd.pc.slideshowHome.entity.SlideshowHomeInfo">
+        select
+        slideshow_num slideshowNum,
+        slideshow_path slideshowPath,
+        slideshow_state_id slideshowStateId,
+        start_time startTime,
+        end_time endTime,
+        slideshow_id slideshowId,
+        version version
+        from t_info_slideshow_home
+        where
+        is_delete = 0
+        <if test="slideshowStateId != null and slideshowStateId != ''">
+            and slideshow_state_id = #{slideshowStateId}
+        </if>
 
+    </select>
+    <!--查询商品接口-->
+    <select id="listGoods" parameterType="com.xzsd.pc.goods.entity.GoodsInfo" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
+        select
+        goods_id goodsId,
+        goods_name goodsName,
+        one_classify_id oneClassifyId,
+        two_classify_id twoClassifyId,
+        goods_state_id goodsStateId
+        from
+        t_info_goods
+        where
+        is_delete = 0
+        <if test="goodsName != null and goodsName != ''">
+            and goods_name like concat('%', #{goodsName}, '%')
+        </if>
+        <if test="goodsId != null and goodsId != ''">
+            and goods_id like concat('%', #{goodsId}, '%')
+        </if>
+    </select>
+    <!--修改轮播图状态-->
+    <update id="updateSlideshowHomeState" parameterType="java.util.List">
+        <foreach item="slideshowHomeInfos" index="index" collection="list">
+            update t_info_slideshow_home
+            set
+            slideshow_state_id = #{slideshowHomeInfos.slideshowStateId},
+            version = #{slideshowHomeInfos.version},
+            update_user = #{slideshowHomeInfos.updateUser},
+            update_time = now()
+            where
+            slideshow_id = #{slideshowHomeInfos.slideshowId}
+            and
+            is_delete = 0
+            and
+            version = #{slideshowHomeInfos.oldVersion};
+        </foreach>
+    </update>
+    <!--删除轮播图-->
+    <update id="deleteSlideshowHome" parameterType="java.lang.String">
+        update t_info_slideshow_home
+        set is_delete = 1,
+          update_user = #{userId},
+          update_time = now()
+        where slideshow_id in
+        <foreach item="item" index="index" collection="slideshowIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ;
+    </update>
 </mapper>
