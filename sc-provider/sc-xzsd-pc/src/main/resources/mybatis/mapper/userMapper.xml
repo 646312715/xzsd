@@ -53,7 +53,8 @@
           id_card idCard,
           role,
           user_image userImage,
-          is_delete isDelete
+          is_delete isDelete,
+          version
         from
          t_sys_user
         where

@@ -197,7 +197,7 @@ public class AppResponse<T> implements Serializable {
      * @return
      */
     public static AppResponse bizError(String msg) {
-        return builder().code(AppResponseStatus.ERROR).msg(msg).build();
+        return builder().code(AppResponseStatus.BIZ_ERROR).msg(msg).build();
     }
 
     /**

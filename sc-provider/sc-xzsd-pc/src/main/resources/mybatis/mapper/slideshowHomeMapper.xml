@@ -60,7 +60,7 @@
         <if test="slideshowStateId != null and slideshowStateId != ''">
             and slideshow_state_id = #{slideshowStateId}
         </if>
-
+        order by slideshowNum desc
     </select>
     <!--查询商品接口-->
     <select id="listGoods" parameterType="com.xzsd.pc.goods.entity.GoodsInfo" resultType="com.xzsd.pc.goods.entity.GoodsInfo">

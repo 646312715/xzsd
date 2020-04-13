@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.goodsClassify.dao.GoodsClassifyDao">
+    <!--插入商品分类-->
+    <insert id="addGoodsClassify" parameterType="com.xzsd.pc.goodsClassify.entity.GoodsClassifyInfo">
+        insert into t_info_goods_classify
+        (classify_id,
+        classify_name,
+        classify_parent,
+        classify_comment,
+        is_delete,
+        create_time,
+        create_user,
+        update_time,
+        update_user,
+        version) values (
+          #{classifyId},
+          #{classifyName},
+          #{classifyParent},
+          #{classifyComment},
+          #{isDelete},
+          now(),
+          #{createUser},
+          now(),
+          #{updateUser},
+          #{version}
+        );
+    </insert>
+    <!--查询商品分类详情-->
+    <select id="getGoodsClassify" parameterType="java.lang.String" resultType="com.xzsd.pc.goodsClassify.entity.GoodsClassifyInfo">
+        select
+        classify_name classifyName,
+        classify_comment classifyComment
+        from t_info_goods_classify
+        where classify_id = #{classifyId}
+        and is_delete = 0
+    </select>
+    <!--查询商品分类列表-->
+    <select id="listAllGoodsClassify" resultType="com.xzsd.pc.goodsClassify.entity.GoodsClassifyInfo">
+        select
+        classify_id classifyId,
+        classify_name classifyName,
+        classify_parent classifyParent,
+        version
+        from t_info_goods_classify
+        where
+        is_delete = 0
+    </select>
+    <!--修改商品分类-->
+    <update id="updateGoodsClassify" parameterType="com.xzsd.pc.goodsClassify.entity.GoodsClassifyInfo">
+      update t_info_goods_classify
+      set classify_name = #{classifyName},
+       classify_comment = #{classifyComment},
+       update_user = #{updateUser},
+       update_time = now(),
+       version = #{version}
+       where
+       version = #{oldVersion}
+       and classify_id = #{classifyId};
+
+
+    </update>
+    <!--删除商品分类-->
+    <update id="deleteGoodsClassify" parameterType="java.lang.String">
+        update t_info_goods_classify
+        set is_delete = 1,
+         update_user = #{userId},
+         update_time = now()
+         where
+         classify_id = #{classifyId}
+         ;
+    </update>
+</mapper>
