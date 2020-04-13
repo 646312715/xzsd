@@ -1,5 +1,9 @@
-package com.xzsd.pc.slideshowHome.entitly;
+package com.xzsd.pc.slideshowHome.entity;
 
+
+/**
+ * @author 64631
+ */
 public class SlideshowHomeInfo {
     /**
      * 轮播图编号

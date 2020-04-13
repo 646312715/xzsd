@@ -17,6 +17,7 @@ import java.util.*;
 
 @Service
 public class GoodsServices {
+
     @Resource
     private GoodsDao goodsDao;
 

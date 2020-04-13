@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+
 @RestController
 @RequestMapping("/goods")
 public class GoodsController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Resource
     private GoodsServices goodsServices;
 

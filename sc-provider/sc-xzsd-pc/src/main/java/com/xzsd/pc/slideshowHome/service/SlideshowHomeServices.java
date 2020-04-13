@@ -1,10 +1,8 @@
 package com.xzsd.pc.slideshowHome.service;
 
 import com.neusoft.core.restful.AppResponse;
-import com.neusoft.util.StringUtil;
-import com.xzsd.pc.goods.dao.GoodsDao;
 import com.xzsd.pc.slideshowHome.dao.SlideshowHomeDao;
-import com.xzsd.pc.slideshowHome.entitly.SlideshowHomeInfo;
+import com.xzsd.pc.slideshowHome.entity.SlideshowHomeInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +10,10 @@ import javax.annotation.Resource;
 
 @Service
 public class SlideshowHomeServices {
+
     @Resource
     private SlideshowHomeDao slideshowHomeDao;
 
-    @Resource
-    private GoodsDao goodsDao;
 
     /**
      * 新增轮播图

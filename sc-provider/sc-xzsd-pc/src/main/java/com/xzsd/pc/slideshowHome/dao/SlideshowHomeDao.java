@@ -1,10 +1,13 @@
 package com.xzsd.pc.slideshowHome.dao;
 
 import com.xzsd.pc.goods.entity.GoodsInfo;
-import com.xzsd.pc.slideshowHome.entitly.SlideshowHomeInfo;
+import com.xzsd.pc.slideshowHome.entity.SlideshowHomeInfo;
 
 import java.util.List;
 
+/**
+ * @author 64631
+ */
 public interface SlideshowHomeDao {
     /**
      * 新增首页轮播图接口
