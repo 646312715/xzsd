@@ -8,57 +8,46 @@ public class GoodsClassifyInfo {
      * 商品分类编号
      */
     private String classifyId;
-
     /**
      * 商品分类名字
      */
     private String classifyName;
-
     /**
      * 商品分类父级编号
      */
     private String classifyParent;
-
     /**
      * 商品分类备注
      */
     private String classifyComment;
-
     /**
      * 作废标记 0为存在，1为作废
      */
     private int isDelete;
-
     /**
      * 创建时间
      */
     private String createTime;
-
     /**
      * 创建者
      */
     private String createUser;
-
     /**
      * 更新时间
      */
     private String updateTime;
-
     /**
      * 更新者
      */
     private String updateUser;
-
     /**
      * 版本号
      */
     private String version;
-
     /**
      * 旧版本号
      */
     private String oldVersion;
-
     /**
      * 二级分类列表
      */

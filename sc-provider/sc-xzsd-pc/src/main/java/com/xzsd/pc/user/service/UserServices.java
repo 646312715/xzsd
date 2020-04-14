@@ -1,7 +1,5 @@
 package com.xzsd.pc.user.service;
-
 import com.github.pagehelper.PageHelper;
-
 import com.github.pagehelper.PageInfo;
 import com.neusoft.core.restful.AppResponse;
 import com.neusoft.util.StringUtil;
@@ -9,7 +7,6 @@ import com.xzsd.pc.user.dao.UserDao;
 import com.xzsd.pc.user.entity.UserInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +15,6 @@ import java.util.List;
 public class UserServices {
     @Resource
     private UserDao userDao;
-
     /**
      * 新增用户
      * @param userInfo
@@ -44,7 +40,6 @@ public class UserServices {
         }
         return AppResponse.success("新增成功！");
     }
-
     /**
      * demo 查询用户详情
      * @param userId
@@ -56,7 +51,6 @@ public class UserServices {
         UserInfo userInfo = userDao.getUser(userId);
         return AppResponse.success("查询成功！",userInfo);
     }
-
     /**
      * demo 修改用户
      * @param userInfo
@@ -83,7 +77,6 @@ public class UserServices {
         }
         return appResponse;
     }
-
     /**
      * demo 删除用户
      * @param userId
@@ -92,6 +85,7 @@ public class UserServices {
      * @Author feng
      * @Date 2020-03-21
      */
+    @Transactional(rollbackFor = Exception.class)
     public AppResponse deleteUser(String userId,String loginId) {
         List<String> listCode = Arrays.asList(userId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
@@ -107,7 +101,6 @@ public class UserServices {
         }
         return appResponse;
     }
-
     /**
      * demo 查询用户列表（分页）
      * @param userInfo
@@ -122,7 +115,6 @@ public class UserServices {
         PageInfo<UserInfo> pageData = new PageInfo<UserInfo>(userInfoList);
         return AppResponse.success("查询成功！",pageData);
     }
-
     /**
      * 检查用户和电话
      * @param userInfo

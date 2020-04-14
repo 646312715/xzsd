@@ -11,18 +11,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/GoodsClassify")
+@RequestMapping("/goodsClassify")
 public class GoodsClassifyController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Resource
     private GoodsClassifyServices goodsClassifyServices;
-
     /**
      * 增添商品
      * @param goodsClassifyInfo
@@ -43,7 +41,6 @@ public class GoodsClassifyController {
             throw e;
         }
     }
-
     /**
      * 查询商品分类详情
      * @param classifyId
@@ -62,7 +59,6 @@ public class GoodsClassifyController {
             throw e;
         }
     }
-
     /**
      * 查询商品分类列表
      * @return
@@ -79,7 +75,6 @@ public class GoodsClassifyController {
             throw e;
         }
     }
-
     /**
      *修改商品分类
      * @return
@@ -97,7 +92,6 @@ public class GoodsClassifyController {
             throw e;
         }
     }
-
     /**
      *删除商品分类
      * @return

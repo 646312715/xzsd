@@ -3,11 +3,11 @@ package com.xzsd.pc.goodsClassify.service;
 import com.neusoft.core.restful.AppResponse;
 import com.neusoft.util.StringUtil;
 import com.xzsd.pc.goodsClassify.dao.GoodsClassifyDao;
+import com.xzsd.pc.goodsClassify.entity.GoodsClassifyDO;
 import com.xzsd.pc.goodsClassify.entity.GoodsClassifyInfo;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,6 @@ public class GoodsClassifyServices {
         }
         return appResponse;
     }
-
     /**
      * 查询商品分类详情
      * @param classifyId
@@ -46,19 +45,16 @@ public class GoodsClassifyServices {
      * @Author feng
      * @Date 2020-04-13
      */
-    @Transactional(rollbackFor = Exception.class)
     public AppResponse getGoodsClassify(String classifyId){
         GoodsClassifyInfo goodsClassifyInfo = goodsClassifyDao.getGoodsClassify(classifyId);
         return AppResponse.success("查询成功",goodsClassifyInfo);
     }
-
     /**
      *查询商品分类列表
      * @return
      * @Author feng
      * @Date 2020-04-13
      */
-    @Transactional(rollbackFor = Exception.class)
     public AppResponse listAllGoodsClassify(){
         List<GoodsClassifyInfo> goodsClassifyInfos = goodsClassifyDao.listAllGoodsClassify();
         List<GoodsClassifyInfo> oneClassifyList = new ArrayList<GoodsClassifyInfo>();
@@ -79,7 +75,9 @@ public class GoodsClassifyServices {
                 oneClassifyList.get(map.get(classifyParent)).setTwoClassifyList(goodsClassifyInfos.get(index));
             }
         }
-        return AppResponse.success("查询分页成功",oneClassifyList);
+        GoodsClassifyDO goodsClassifyDO = new GoodsClassifyDO();
+        goodsClassifyDO.setOneClassifyList(oneClassifyList);
+        return AppResponse.success("查询分页成功",goodsClassifyDO);
     }
     /**
      *修改商品分类
@@ -99,7 +97,6 @@ public class GoodsClassifyServices {
         }
         return appResponse;
     }
-
     /**
      *删除商品分类
      * @return

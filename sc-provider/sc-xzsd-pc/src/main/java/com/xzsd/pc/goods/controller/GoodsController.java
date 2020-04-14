@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 @RequestMapping("/goods")
 public class GoodsController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
 
     @Resource
     private GoodsServices goodsServices;
@@ -102,10 +102,8 @@ public class GoodsController {
             throw e;
         }
     }
-
     /**
      * demo 删除商品
-     *
      * @param goodsId
      * @return AppResponse
      * @author feng
@@ -131,7 +129,6 @@ public class GoodsController {
 //            throw e;
 //        }
 //    }
-
     /**
      * 修改商品状态
      * @param goodsInfo

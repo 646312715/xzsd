@@ -28,14 +28,12 @@ public interface UserDao {
      * @return 用户信息
      */
     UserInfo getUser(String userId);
-
     /**
      * 修改用户信息
      * @param userInfo 用户信息
      * @return 修改结果
      */
     int updateUser(UserInfo userInfo);
-
     /**
      * 删除用户信息
      * @param listCode
@@ -43,7 +41,6 @@ public interface UserDao {
      * @return 删除结果
      */
     int deleteUser(@Param("listCode") List<String> listCode, @Param("loginId") String loginId);
-
     /**
      * 获取所有用户信息
      * @param userInfo 用户信息

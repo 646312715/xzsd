@@ -19,14 +19,11 @@ import javax.annotation.Resource;
  * @author 64631
  */
 @RestController
-@RequestMapping("/SlideshowHome")
+@RequestMapping("/slideshowHome")
 public class SlideshowHomeController {
     private static final Logger logger = LoggerFactory.getLogger(SlideshowHomeController.class);
-
     @Resource
     private SlideshowHomeServices slideshowHomeServices;
-
-
     /**
      * 新增轮播图
      * @param slideshowHomeInfo
@@ -49,7 +46,6 @@ public class SlideshowHomeController {
             throw e;
         }
     }
-
     /**
      * 轮播图列表
      * @param slideshowHomeInfo
@@ -68,7 +64,6 @@ public class SlideshowHomeController {
             throw e;
         }
     }
-
     /**
      * 商品列表
      * @param goodsInfo
@@ -105,9 +100,8 @@ public class SlideshowHomeController {
             throw e;
         }
     }
-
     /**
-     * 商品列表
+     * 删除轮播图
      * @param slideshowIds
      * @return AppResponse
      * @author feng

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.order.dao.OrderDao">
+
+    <!--查询商品分类列表-->
+    <select id="getListOrder" resultType="com.xzsd.pc.order.entity.OrderDeepenInfo" parameterType="java.lang.String">
+        select
+        user_id userId,
+        d.order_id orderId,
+        d.goods_id goodsId,
+        goods_name goodsName,
+        goods_count goodsCount,
+        the_goods_all_price theGoodsAllPrice,
+        goods_price goodsPrice,
+        goods_original_cost goodsShelfCost
+        from t_info_order_deepen d
+        left join t_info_order o
+        on d.order_id = o.order_id
+        left join t_info_goods g
+        on d.goods_id = g.goods_id
+        where d.order_id = #{orderId}
+    </select>
+    <!--分页查询订单-->
+    <select id="listOrders" parameterType="com.xzsd.pc.order.entity.OrderInfo" resultType="com.xzsd.pc.order.entity.OrderInfo">
+        select
+        order_id orderId,
+        order_all_cost orderAllCost,
+        order_state_id orderStateId,
+        o.store_id storeId,
+        user_name userName,
+        u.phone,
+        pay_time payTime,
+        o.version
+        from t_info_order o
+        left join t_sys_user u
+        on o.user_id = u.user_id
+        left join t_info_store s
+        on o.store_id = s.store_id
+        where
+        o.is_delete = 0
+        <if test="orderInfo.userName != null and orderInfo.userName != ''">
+            and user_name like concat('%', #{orderInfo.userName}, '%')
+        </if>
+        <if test="orderInfo.phone != null and orderInfo.phone != ''">
+            and phone like concat('%', #{orderInfo.phone}, '%')
+        </if>
+        <if test="orderInfo.orderId != null and orderInfo.orderId != ''">
+            and order_id like concat('%', #{orderInfo.orderId}, '%')
+        </if>
+        <if test="orderInfo.orderStateId != null and orderInfo.orderStateId != ''">
+            and order_state_id like concat('%', #{orderInfo.orderStateId}, '%')
+        </if>
+        <if test="orderInfo.payTimeStart != null and orderInfo.payTimeStart != ''">
+            and pay_time &gt;= #{orderInfo.payTimeStart}
+        </if>
+        <if test="orderInfo.payTimeEnd != null and orderInfo.payTimeEnd != ''">
+            and pay_time &lt; #{orderInfo.payTimeEnd}
+        </if>
+        <if test="orderInfo.role == '2'">
+            and s.user_id=#{loginId}
+        </if>
+    </select>
+    <!--订单状态修改-->
+    <update id="updateOrderState" parameterType="java.util.List">
+        <foreach item="orderInfos" index="index" collection="list">
+            update t_info_order
+            set
+            order_state_id = #{orderInfos.orderStateId},
+            version = #{orderInfos.version},
+            update_user = #{orderInfos.updateUser},
+            update_time = now()
+            where
+            order_id = #{orderInfos.orderId}
+            and
+            is_delete = 0
+            and
+            version = #{orderInfos.oldVersion};
+        </foreach>
+    </update>
+</mapper>

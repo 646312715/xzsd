@@ -74,12 +74,14 @@
         t_info_goods
         where
         is_delete = 0
+        and goods_state_id = 1
         <if test="goodsName != null and goodsName != ''">
             and goods_name like concat('%', #{goodsName}, '%')
         </if>
         <if test="goodsId != null and goodsId != ''">
             and goods_id like concat('%', #{goodsId}, '%')
         </if>
+
     </select>
     <!--修改轮播图状态-->
     <update id="updateSlideshowHomeState" parameterType="java.util.List">

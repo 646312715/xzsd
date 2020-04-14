@@ -16,12 +16,9 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
     @Resource
     private UserServices userServices;
-
     /**
      *
      *新增用户
@@ -47,7 +44,6 @@ public class UserController {
             throw e;
         }
     }
-
     /**
      * demo 查询用户详情
      *
@@ -66,10 +62,8 @@ public class UserController {
             throw e;
         }
     }
-
     /**
-     * demo 修改用户
-     *
+     * 修改用户
      * @param userInfo
      * @return AppResponse
      * @author feng
@@ -89,10 +83,8 @@ public class UserController {
             throw e;
         }
     }
-
     /**
-     * demo 删除用户
-     *
+     * 删除用户
      * @param userId
      * @return AppResponse
      * @author feng
@@ -110,7 +102,6 @@ public class UserController {
             throw e;
         }
     }
-
     /**
      * demo 用户列表(分页)
      *

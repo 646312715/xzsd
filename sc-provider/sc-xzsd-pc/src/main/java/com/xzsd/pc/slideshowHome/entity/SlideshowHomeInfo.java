@@ -9,82 +9,66 @@ public class SlideshowHomeInfo {
      * 轮播图编号
      */
     private String slideshowId;
-
     /**
      * 轮播图排序
      */
     private int slideshowNum;
-
     /**
      * 轮播图图片路径
      */
     private String slideshowPath;
-
     /**
      * 有效期开始时间
      */
     private String startTime;
-
     /**
      * 有效期截止时间
      */
     private String endTime;
-
     /**
      * 商品编号
      */
     private String goodsId;
-
     /**
      * 轮播图状态编号
      */
     private String slideshowStateId;
-
     /**
      * 商品名字
      */
     private String goodsName;
-
     /**
      * 页码
      */
     private int pageSize;
-
     /**
      * 页数
      */
     private int pageNum;
-
     /**
      * 作废标记 0为存在，1为作废
      */
     private int isDelete;
-
     /**
      * 创建时间
      */
     private String createTime;
-
     /**
      * 创建者
      */
     private String createUser;
-
     /**
      * 更新时间
      */
     private String updateTime;
-
     /**
      * 更新者
      */
     private String updateUser;
-
     /**
      * 版本号
      */
     private String version;
-
     /**
      * 旧版本号
      */

@@ -24,8 +24,6 @@ public class SlideshowHomeServices {
 
     @Resource
     private SlideshowHomeDao slideshowHomeDao;
-
-
     /**
      * 新增轮播图
      * @param slideshowHomeInfo
@@ -50,8 +48,7 @@ public class SlideshowHomeServices {
 //        Integer month = Integer.parseInt(strNow[1]);
 //        Integer day = Integer.parseInt(strNow[2]);
 //        String nowDate = year.toString()+month.toString()+day.toString();
-
-        if (slideshowHomeInfo.getStartTime().compareTo(strNow)<0 && slideshowHomeInfo.getEndTime().compareTo(strNow)>0){
+        if (slideshowHomeInfo.getStartTime().compareTo(strNow)<= 0 && slideshowHomeInfo.getEndTime().compareTo(strNow) > 0){
             slideshowHomeInfo.setSlideshowStateId("1");
         }else{
             slideshowHomeInfo.setSlideshowStateId("0");
@@ -64,7 +61,6 @@ public class SlideshowHomeServices {
         }
         return appResponse;
     }
-
     /**
      * 轮播图列表查询
      * @param slideshowHomeInfo
@@ -72,14 +68,12 @@ public class SlideshowHomeServices {
      * @Author feng
      * @Date 2020-04-13
      */
-    @Transactional(rollbackFor = Exception.class)
     public AppResponse listSlideshowHome(SlideshowHomeInfo slideshowHomeInfo){
         PageHelper.startPage(slideshowHomeInfo.getPageNum(), slideshowHomeInfo.getPageSize());
         List<SlideshowHomeInfo> slideshowHomeInfos = slideshowHomeDao.listSlideshowHome(slideshowHomeInfo);
         PageInfo<SlideshowHomeInfo> pageData = new PageInfo<SlideshowHomeInfo>(slideshowHomeInfos);
         return AppResponse.success("查询成功",slideshowHomeInfos);
     }
-
     /**
      * 商品列表查询
      * @param goodsInfo
@@ -87,14 +81,12 @@ public class SlideshowHomeServices {
      * @Author feng
      * @Date 2020-04-13
      */
-    @Transactional(rollbackFor = Exception.class)
     public AppResponse listGoods(GoodsInfo goodsInfo){
         PageHelper.startPage(goodsInfo.getPageNum(), goodsInfo.getPageSize());
         List<GoodsInfo> goodsInfos = slideshowHomeDao.listGoods(goodsInfo);
         PageInfo<GoodsInfo> pageData = new PageInfo<GoodsInfo>(goodsInfos);
         return AppResponse.success("mysql查询成功！",pageData);
     }
-
     /**
      * 修改状态信息
      * @param slideshowHomeInfo
@@ -125,7 +117,6 @@ public class SlideshowHomeServices {
         }
         return appResponse;
     }
-
     /**
      * 删除轮播图
      * @param slideshowIds
