@@ -1588,14 +1588,12 @@
       <Position>4</Position>
       <Comment>有效期开始时间</Comment>
       <DataType>datetime|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="356" parent="248" name="end_time">
       <Position>5</Position>
       <Comment>有效期结束时间</Comment>
       <DataType>datetime|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="357" parent="248" name="is_delete">
