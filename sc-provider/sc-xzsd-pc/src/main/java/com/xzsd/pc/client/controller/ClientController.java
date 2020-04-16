@@ -34,7 +34,6 @@ public AppResponse listClients(ClientInfo clientInfo){
     try {
         String userId = SecurityUtils.getCurrentUserId();
         return clientServices.listClients(clientInfo,userId);
-
     } catch (Exception e) {
         logger.error("查询客户列表异常", e);
         System.out.println(e.toString());

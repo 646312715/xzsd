@@ -31,7 +31,6 @@ public class GoodsClassifyServices {
         goodsClassifyInfo.setClassifyId(StringUtil.getCommonCode(2));
         goodsClassifyInfo.setIsDelete(0);
         goodsClassifyInfo.setVersion("0");
-
         int count = goodsClassifyDao.addGoodsClassify(goodsClassifyInfo);
         if (count==0) {
             appResponse = AppResponse.bizError("新增失败，请重试！");

@@ -132,6 +132,8 @@ public class GoodsController {
      * 修改商品状态
      * @param goodsInfo
      * @return
+     * @author feng
+     * @Date 2020-04-11
      */
     @PostMapping("updateGoodsShelfState")
     public AppResponse updateGoodsShelfState(GoodsInfo goodsInfo){
@@ -140,6 +142,21 @@ public class GoodsController {
             return goodsServices.updateGoodsShelfState(goodsInfo);
         }catch (Exception e){
             logger.error("商品查询错误", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+    /**
+     * 查询商品分类下拉框接口
+     * @param classifyId
+     * @return
+     */
+    @PostMapping("listGoodsClassify")
+    public AppResponse listGoodsClassify(String classifyId){
+        try{
+            return goodsServices.listGoodsClassify(classifyId);
+        }catch (Exception e){
+            logger.error("查询商品分类下拉框错误", e);
             System.out.println(e.toString());
             throw e;
         }

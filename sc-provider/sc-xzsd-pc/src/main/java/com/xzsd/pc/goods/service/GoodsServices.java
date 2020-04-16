@@ -8,7 +8,9 @@ import com.neusoft.util.JsonUtils;
 import com.neusoft.util.StringUtil;
 
 import com.xzsd.pc.goods.dao.GoodsDao;
+import com.xzsd.pc.goods.entity.GoodsClassifyDO;
 import com.xzsd.pc.goods.entity.GoodsInfo;
+import com.xzsd.pc.goodsClassify.entity.GoodsClassifyInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,7 +55,6 @@ public class GoodsServices {
      */
     public AppResponse getGoods(String goodsId){
         GoodsInfo goodsInfo = goodsDao.getGoods(goodsId);
-
         return AppResponse.success("查询成功", goodsInfo);
     }
     /**
@@ -86,7 +87,6 @@ public class GoodsServices {
      * @Date 2020-03-21
      */
     public AppResponse listGoods(GoodsInfo goodsInfo) {
-
             PageHelper.startPage(goodsInfo.getPageNum(), goodsInfo.getPageSize());
             List<GoodsInfo> goodsInfoList = goodsDao.listGoods(goodsInfo);
             // 包装Page对象
@@ -102,7 +102,6 @@ public class GoodsServices {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse deleteGoods(String userId,String goodsId){
-        GoodsInfo goodsInfo = goodsDao.getGoods(goodsId);
         List<String> listCode = Arrays.asList(goodsId.split(","));
         // 检查是否有轮播图
          List<String> goodsNames = goodsDao.getGoodsInSlideshowHome(listCode);
@@ -145,5 +144,17 @@ public class GoodsServices {
             appResponse = AppResponse.bizError("数据已更新，请重试！");
         }
         return appResponse;
+    }
+
+    /**
+     * 查询商品分类下拉框接口
+     * @param classifyId
+     * @return
+     */
+    public AppResponse listGoodsClassify(String classifyId){
+        List<GoodsClassifyInfo> goodsClassifyInfos = goodsDao.listGoodsClassify(classifyId);
+        GoodsClassifyDO goodsClassifyList = new GoodsClassifyDO();
+        goodsClassifyList.setGoodsClassifyList(goodsClassifyInfos);
+        return AppResponse.success("查询成功", goodsClassifyList);
     }
 }

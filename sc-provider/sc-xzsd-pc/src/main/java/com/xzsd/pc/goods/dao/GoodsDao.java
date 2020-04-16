@@ -3,6 +3,7 @@ package com.xzsd.pc.goods.dao;
 
 
 import com.xzsd.pc.goods.entity.GoodsInfo;
+import com.xzsd.pc.goodsClassify.entity.GoodsClassifyInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -59,17 +60,19 @@ public interface GoodsDao {
      * @return
      */
     int findGoodCount(GoodsInfo goodsInfo);
-//    /**
-//     * 查询商品信息数量
-//     * @param goodsInfo 商品编号
-//     * @return
-//     */
-//    int findVersion(GoodsInfo goodsInfo);
-
 
     /**
      * 查询商品是否有轮播图
+     * @param listCode
+     * @return
      */
     List<String> getGoodsInSlideshowHome(@Param("listCode")List<String> listCode);
+
+    /**
+     * 查询商品分类下拉框接口
+     * @param id
+     * @return
+     */
+    List<GoodsClassifyInfo> listGoodsClassify(String id);
 
 }

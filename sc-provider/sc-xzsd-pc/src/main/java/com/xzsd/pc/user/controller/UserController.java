@@ -114,7 +114,6 @@ public class UserController {
     public AppResponse listUsers(UserInfo userInfo) {
         try {
             return userServices.listUsers(userInfo);
-
         } catch (Exception e) {
             logger.error("查询用户列表异常", e);
             System.out.println(e.toString());
