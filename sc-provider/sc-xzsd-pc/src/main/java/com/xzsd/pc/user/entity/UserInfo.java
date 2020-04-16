@@ -75,6 +75,20 @@ public class UserInfo {
      */
     private String version;
 
+    /**
+     * 旧版本号
+     * @return
+     */
+    private String oldVersion;
+
+    public String getOldVersion() {
+        return oldVersion;
+    }
+
+    public void setOldVersion(String oldVersion) {
+        this.oldVersion = oldVersion;
+    }
+
     public String getRole() {
         return role;
     }

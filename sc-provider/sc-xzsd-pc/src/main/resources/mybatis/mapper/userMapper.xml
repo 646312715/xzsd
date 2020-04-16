@@ -76,7 +76,7 @@
         and user_id != #{userId}
     </if>
 
-</select>
+  </select>
     <!--修改用户-->
     <update id="updateUser" parameterType="com.xzsd.pc.user.entity.UserInfo">
         update t_sys_user set
@@ -95,8 +95,9 @@
           where
             user_id = #{userId}
           and
-            is_delete=0;
-
+            is_delete=0
+          and
+            version = #{oldVersion}
     </update>
     <!--删除用户-->
     <update id="deleteUser" parameterType="java.lang.String">

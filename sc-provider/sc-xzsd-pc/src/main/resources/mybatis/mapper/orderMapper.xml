@@ -56,7 +56,7 @@
         <if test="orderInfo.payTimeEnd != null and orderInfo.payTimeEnd != ''">
             and pay_time &lt; #{orderInfo.payTimeEnd}
         </if>
-        <if test="orderInfo.role == '2'">
+        <if test="orderInfo.role == 2">
             and s.user_id=#{loginId}
         </if>
     </select>

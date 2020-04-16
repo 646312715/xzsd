@@ -59,7 +59,6 @@ public class GoodsController {
             String userId = SecurityUtils.getCurrentUserId();
             goodsInfo.setUpdateUser(userId);
             goodsInfo.setGoodsImagePath(imagePath);
-
             AppResponse appResponse = goodsServices.updateGoods(goodsInfo);
             return appResponse;
         }catch (Exception e){

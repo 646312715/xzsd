@@ -17,7 +17,7 @@
          left join t_info_store s
          on c.invite_code = s.invite_code
         where c.is_delete = 0
-        <if test="clientInfo.role == '2'">
+        <if test="clientInfo.role == 2">
             and s.user_id=#{loginId}
         </if>
         <if test="clientInfo.userName != null and clientInfo.userName != ''">

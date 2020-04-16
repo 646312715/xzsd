@@ -70,7 +70,10 @@ public class UserServices {
             return AppResponse.bizError("修改失败，手机号码已存在！");
         }
         // 修改用户信息
+        userInfo.setOldVersion(userInfo.getVersion());
+        userInfo.setVersion(String.valueOf(Integer.parseInt(userInfo.getVersion())+1));
         int count = userDao.updateUser(userInfo);
+
         if (0 == count) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");
             return appResponse;
