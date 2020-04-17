@@ -66,7 +66,7 @@ public interface GoodsDao {
      * @param listCode
      * @return
      */
-    List<String> getGoodsInSlideshowHome(@Param("listCode")List<String> listCode);
+    int checkGoods(@Param("listCode")List<String> listCode);
 
     /**
      * 查询商品分类下拉框接口

@@ -36,14 +36,15 @@
     <select id="getGoodsCount" parameterType="java.lang.String" resultType="int">
         select count(*)
         from t_info_slideshow_home
-        where goods_id = #{goodsId};
+        where goods_id = #{goodsId}
+        or slideshow_num = #{slideshowNum};
     </select>
-    <!--轮播图排序查重-->
-    <select id="getSlideshowNum" parameterType="int" resultType="int">
-        select count(*)
-        from t_info_slideshow_home
-        where slideshow_num = #{slideshowNum};
-    </select>
+    <!--&lt;!&ndash;轮播图排序查重&ndash;&gt;-->
+    <!--<select id="getSlideshowNum" parameterType="int" resultType="int">-->
+        <!--select count(*)-->
+        <!--from t_info_slideshow_home-->
+        <!--where -->
+    <!--</select>-->
     <!--分页查询接口-->
     <select id="listSlideshowHome" parameterType="com.xzsd.pc.slideshowHome.entity.SlideshowHomeInfo" resultType="com.xzsd.pc.slideshowHome.entity.SlideshowHomeInfo">
         select

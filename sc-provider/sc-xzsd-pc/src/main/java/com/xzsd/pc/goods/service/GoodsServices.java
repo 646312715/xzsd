@@ -104,12 +104,12 @@ public class GoodsServices {
     public AppResponse deleteGoods(String userId,String goodsId){
         List<String> listCode = Arrays.asList(goodsId.split(","));
         // 检查是否有轮播图
-         List<String> goodsNames = goodsDao.getGoodsInSlideshowHome(listCode);
-         if (goodsNames.size()!=0){
-             return AppResponse.bizError("商品"+goodsNames+"含有轮播图,无法删除");
+         int count = goodsDao.checkGoods(listCode);
+         if (count != 0){
+             return AppResponse.bizError("商品含有轮播图或热门商品,无法删除");
          }
         // 删除商品
-        int count = goodsDao.deleteGoods(listCode,userId);
+         count = goodsDao.deleteGoods(listCode,userId);
         AppResponse appResponse = AppResponse.success("删除成功！");
         if(0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");

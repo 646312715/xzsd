@@ -36,11 +36,7 @@ public class SlideshowHomeServices {
         AppResponse appResponse=AppResponse.success("新增成功！");
         int count = slideshowHomeDao.getGoodsCount(slideshowHomeInfo.getGoodsId());
         if (count != 0){
-            return AppResponse.bizError("已存在商品，请重新输入！");
-        }
-        count = slideshowHomeDao.getSlideshowNum(slideshowHomeInfo.getSlideshowNum());
-        if (count != 0){
-            return AppResponse.bizError("已存在排序，请重新输入！");
+            return AppResponse.bizError("已存在商品或已存在排序，请重新输入！");
         }
         //判别是否在有效期内
         String strNow = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString();

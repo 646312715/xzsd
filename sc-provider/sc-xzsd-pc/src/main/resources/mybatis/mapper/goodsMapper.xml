@@ -212,10 +212,18 @@
         </foreach>
     </update>
     <!--查询轮播图是否有该商品-->
-    <select id="getGoodsInSlideshowHome" resultType="java.lang.String">
-        select goods_name
-        from t_info_slideshow_home left join t_info_goods on t_info_goods.goods_id = t_info_slideshow_home.goods_id
+    <select id="checkGoods" resultType="java.lang.String">
+        select count(*)
+        from t_info_goods
+        left join t_info_hot_goods
+        on t_info_goods.goods_id = t_info_hot_goods.goods_id
+        left join t_info_slideshow_home
+        on t_info_goods.goods_id = t_info_slideshow_home.goods_id
         where t_info_slideshow_home.goods_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        or t_info_hot_goods.goods_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}
         </foreach>

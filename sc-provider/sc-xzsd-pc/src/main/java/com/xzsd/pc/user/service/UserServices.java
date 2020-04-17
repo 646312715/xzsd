@@ -8,6 +8,7 @@ import com.xzsd.pc.user.entity.UserInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
+import com.xzsd.pc.utils.PasswordUtils;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class UserServices {
         if (check == 2){
             return AppResponse.bizError("新增失败，手机号码已存在！");
         }
+        String password = PasswordUtils.generatePassword(userInfo.getUserPassword());
+        userInfo.setUserPassword(password);
         int count = userDao.addUser(userInfo);
         if(0 == count) {
             return AppResponse.bizError("新增失败，请重试！");
@@ -70,6 +73,8 @@ public class UserServices {
             return AppResponse.bizError("修改失败，手机号码已存在！");
         }
         // 修改用户信息
+        String password = PasswordUtils.generatePassword(userInfo.getUserPassword());
+        userInfo.setUserPassword(password);
         userInfo.setOldVersion(userInfo.getVersion());
         userInfo.setVersion(String.valueOf(Integer.parseInt(userInfo.getVersion())+1));
         int count = userDao.updateUser(userInfo);
