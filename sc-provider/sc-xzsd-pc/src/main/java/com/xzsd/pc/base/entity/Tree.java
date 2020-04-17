@@ -11,46 +11,45 @@ import java.util.List;
  */
 public class Tree {
 
-    private String id;
-    private String label;
-    private String index;
-    private Object attributes;
+    private String menuId;
+    private String menuName;
+    private String menuPath;
+    private String version;
     private List<Tree> children = new ArrayList<Tree>();
     private String pid;
     private String code;
     private String type;
 
-
-    public String getId() {
-        return id;
+    public String getMenuId() {
+        return menuId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
     }
 
-    public String getLabel() {
-        return label;
+    public String getMenuName() {
+        return menuName;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
     }
 
-    public String getIndex() {
-        return index;
+    public String getMenuPath() {
+        return menuPath;
     }
 
-    public void setIndex(String index) {
-        this.index = index;
+    public void setMenuPath(String menuPath) {
+        this.menuPath = menuPath;
     }
 
-    public Object getAttributes() {
-        return attributes;
+    public String getVersion() {
+        return version;
     }
 
-    public void setAttributes(Object attributes) {
-        this.attributes = attributes;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public List<Tree> getChildren() {
@@ -60,7 +59,6 @@ public class Tree {
     public void setChildren(List<Tree> children) {
         this.children = children;
     }
-
 
     public String getPid() {
         return pid;
@@ -85,6 +83,4 @@ public class Tree {
     public void setType(String type) {
         this.type = type;
     }
-
-
 }

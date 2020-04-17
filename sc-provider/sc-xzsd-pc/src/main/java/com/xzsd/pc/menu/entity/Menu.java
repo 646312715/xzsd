@@ -1,205 +1,175 @@
-//package com.xzsd.pc.menu.entity;
-//
-//import java.util.Date;
-//
-///**
-// * 部门：软件开发事业部
-// * 描述：略
-// * 作成者：印政权
-// * 作成时间：2018/3/13
-// */
-//
-//public class Menu {
-//
-//    private String id;
-//
-//    private String menuCode;
-//
-//    private String menuName;
-//
-//    private String menuUrl;
-//
-//    private String parentMenuCode;
-//
-//    private String type;
-//
-//    private int sortNo;
-//
-//    private String isDeleted;
-//
-//    private String remark;
-//
-//    private String createBy;
-//
-//    private String  lastModifiedBy;
-//
-//    private int level;
-//
-//    private String authCode;
-//
-//    private String parentAuthCode;
-//
-//    private String[] menuCodes;
-//
-//    private String userCode;
-//
-//    private Date gmtCreate;
-//    private Date gmtModified;
-//
-//    /**
-//     * 版本
-//     */
-//    private String version;
-//
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public void setId(String id) {
-//        this.id = id;
-//    }
-//
-//    public String getMenuCode() {
-//        return menuCode;
-//    }
-//
-//    public void setMenuCode(String menuCode) {
-//        this.menuCode = menuCode;
-//    }
-//
-//    public String getMenuName() {
-//        return menuName;
-//    }
-//
-//    public void setMenuName(String menuName) {
-//        this.menuName = menuName;
-//    }
-//
-//    public String getMenuUrl() {
-//        return menuUrl;
-//    }
-//
-//    public void setMenuUrl(String menuUrl) {
-//        this.menuUrl = menuUrl;
-//    }
-//
-//    public String getParentMenuCode() {
-//        return parentMenuCode;
-//    }
-//
-//    public void setParentMenuCode(String parentMenuCode) {
-//        this.parentMenuCode = parentMenuCode;
-//    }
-//
-//    public String getType() {
-//        return type;
-//    }
-//
-//    public void setType(String type) {
-//        this.type = type;
-//    }
-//
-//    public int getSortNo() {
-//        return sortNo;
-//    }
-//
-//    public void setSortNo(int sortNo) {
-//        this.sortNo = sortNo;
-//    }
-//
-//    public String getIsDeleted() {
-//        return isDeleted;
-//    }
-//
-//    public void setIsDeleted(String isDeleted) {
-//        this.isDeleted = isDeleted;
-//    }
-//
-//    public String getRemark() {
-//        return remark;
-//    }
-//
-//    public void setRemark(String remark) {
-//        this.remark = remark;
-//    }
-//
-//    public String getCreateBy() {
-//        return createBy;
-//    }
-//
-//    public void setCreateBy(String createBy) {
-//        this.createBy = createBy;
-//    }
-//
-//    public String getLastModifiedBy() {
-//        return lastModifiedBy;
-//    }
-//
-//    public void setLastModifiedBy(String lastModifiedBy) {
-//        this.lastModifiedBy = lastModifiedBy;
-//    }
-//
-//    public int getLevel() {
-//        return level;
-//    }
-//
-//    public void setLevel(int level) {
-//        this.level = level;
-//    }
-//
-//    public String getAuthCode() {
-//        return authCode;
-//    }
-//
-//    public void setAuthCode(String authCode) {
-//        this.authCode = authCode;
-//    }
-//
-//    public String getParentAuthCode() {
-//        return parentAuthCode;
-//    }
-//
-//    public void setParentAuthCode(String parentAuthCode) {
-//        this.parentAuthCode = parentAuthCode;
-//    }
-//
-//    public String[] getMenuCodes() {
-//        return menuCodes;
-//    }
-//
-//    public void setMenuCodes(String[] menuCodes) {
-//        this.menuCodes = menuCodes;
-//    }
-//
-//    public String getUserCode() {
-//        return userCode;
-//    }
-//
-//    public void setUserCode(String userCode) {
-//        this.userCode = userCode;
-//    }
-//
-//    public Date getGmtCreate() {
-//        return gmtCreate;
-//    }
-//
-//    public void setGmtCreate(Date gmtCreate) {
-//        this.gmtCreate = gmtCreate;
-//    }
-//
-//    public Date getGmtModified() {
-//        return gmtModified;
-//    }
-//
-//    public void setGmtModified(Date gmtModified) {
-//        this.gmtModified = gmtModified;
-//    }
-//
-//    public String getVersion() {
-//        return version;
-//    }
-//
-//    public void setVersion(String version) {
-//        this.version = version;
-//    }
-//}
+package com.xzsd.pc.menu.entity;
+
+import java.util.Date;
+
+/**
+ * 部门：软件开发事业部
+ * 描述：略
+ * 作成者：印政权
+ * 作成时间：2018/3/13
+ */
+
+public class Menu {
+
+    /**
+     * 菜单编号
+     */
+    private String menuId;
+    /**
+     * 菜单名字
+     */
+    private String menuName;
+    /**
+     * 菜单路由
+     */
+    private String menuPath;
+
+    /**
+     * 父级菜单编号
+     */
+    private String parentMenu;
+
+    /**
+     * 菜单注释
+     */
+    private String menuComment;
+    /**
+     * 作废标记 0为存在，1为作废
+     */
+    private int isDelete;
+    /**
+     * 创建时间
+     */
+    private String createTime;
+    /**
+     * 创建者
+     */
+    private String createUser;
+    /**
+     * 更新时间
+     */
+    private String updateTime;
+    /**
+     * 更新者
+     */
+    private String updateUser;
+    /**
+     * 角色
+     */
+    private String role;
+
+    /**
+     * 版本号
+     */
+    private String version;
+
+    /**
+     * 旧版本号
+     * @return
+     */
+    private String oldVersion;
+
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
+
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
+    }
+
+    public String getMenuPath() {
+        return menuPath;
+    }
+
+    public void setMenuPath(String menuPath) {
+        this.menuPath = menuPath;
+    }
+
+    public String getParentMenu() {
+        return parentMenu;
+    }
+
+    public void setParentMenu(String parentMenu) {
+        this.parentMenu = parentMenu;
+    }
+
+    public String getMenuComment() {
+        return menuComment;
+    }
+
+    public void setMenuComment(String menuComment) {
+        this.menuComment = menuComment;
+    }
+
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getOldVersion() {
+        return oldVersion;
+    }
+
+    public void setOldVersion(String oldVersion) {
+        this.oldVersion = oldVersion;
+    }
+}
