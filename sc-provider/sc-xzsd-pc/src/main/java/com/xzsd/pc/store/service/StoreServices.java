@@ -31,6 +31,9 @@ public class StoreServices {
      */
     public AppResponse listArea(String areaId){
         List<AreaInfo> areaInfos = storeDao.listArea(areaId);
+        if(areaInfos.size() == 0){
+            return AppResponse.notFound("未找到数据");
+        }
         AreaDO areaDO = new AreaDO();
         areaDO.setAreaList(areaInfos);
         return AppResponse.success("查询省市区成功",areaDO);
@@ -70,6 +73,9 @@ public class StoreServices {
      */
     public AppResponse getStore(String storeId){
         StoreInfo storeInfo = storeDao.getStore(storeId);
+        if(storeInfo == null){
+            return AppResponse.notFound("未找到数据");
+        }
         return AppResponse.success("查询门店信息详情",storeInfo);
     }
     /**
@@ -82,9 +88,12 @@ public class StoreServices {
     public AppResponse listStores(StoreInfo storeInfo){
         PageHelper.startPage(storeInfo.getPageNum(), storeInfo.getPageSize());
         List<StoreInfo> goodsInfoList = storeDao.listStores(storeInfo);
+        if(goodsInfoList.size() == 0){
+            return AppResponse.notFound("未找到数据");
+        }
         // 包装Page对象
         PageInfo<StoreInfo> pageData = new PageInfo<StoreInfo>(goodsInfoList);
-        return AppResponse.success("mysql查询成功！",pageData);
+        return AppResponse.success("查询成功！",pageData);
     }
     /**
      * 修改门店信息

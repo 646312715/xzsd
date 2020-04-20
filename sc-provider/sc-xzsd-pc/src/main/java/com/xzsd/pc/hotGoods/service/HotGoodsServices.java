@@ -7,6 +7,7 @@ import com.neusoft.util.StringUtil;
 import com.xzsd.pc.hotGoods.dao.HotGoodsDao;
 import com.xzsd.pc.hotGoods.entity.GoodsShowNumInfo;
 import com.xzsd.pc.hotGoods.entity.HotGoodsInfo;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,20 +30,18 @@ public class HotGoodsServices {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addHotGoods(HotGoodsInfo hotGoodsInfo){
-        List<HotGoodsInfo> hotGoodsInfos = hotGoodsDao.getGoodsCount(hotGoodsInfo);
-        for (int index=0 ; index<hotGoodsInfos.size() ; index++){
-            if(hotGoodsInfos.get(index).getGoodsId().equals(hotGoodsInfo.getGoodsId())){
-                return AppResponse.bizError("已存在商品，请重试");
-            }
-            if(hotGoodsInfos.get(index).getHotGoodsNum().equals(hotGoodsInfo.getHotGoodsNum())){
-                return AppResponse.bizError("已存在排序，请重试");
-            }
+        int count = hotGoodsDao.getGoodsCount(hotGoodsInfo);
+        if ((count & 1) == 1){
+            return AppResponse.bizError("已存在排序，请重试");
+        }
+        if ((count & 2) == 2) {
+            return AppResponse.bizError("已存在商品，请重试");
         }
         hotGoodsInfo.setIsDelete(0);
         hotGoodsInfo.setVersion("0");
         hotGoodsInfo.setHotGoodsId(StringUtil.getCommonCode(2));
         AppResponse appResponse = AppResponse.success("新增热门位成功");
-        int count = hotGoodsDao.addHotGoods(hotGoodsInfo);
+        count = hotGoodsDao.addHotGoods(hotGoodsInfo);
         if (count == 0){
             return AppResponse.bizError("新增失败");
         }
@@ -57,6 +56,9 @@ public class HotGoodsServices {
      */
     public AppResponse getHotGoods(String hotGoodsId){
         HotGoodsInfo hotGoodsInfo = hotGoodsDao.getHotGoods(hotGoodsId);
+        if(hotGoodsInfo == null){
+            return AppResponse.notFound("未找到数据，请重试");
+        }
         return AppResponse.success("查询详情成功",hotGoodsInfo);
     }
 
@@ -70,6 +72,9 @@ public class HotGoodsServices {
     public AppResponse listHotGoods(HotGoodsInfo hotGoodsInfo){
         PageHelper.startPage(hotGoodsInfo.getPageNum(), hotGoodsInfo.getPageSize());
         List<HotGoodsInfo> slideshowHomeInfos = hotGoodsDao.listHotGoods(hotGoodsInfo);
+        if(slideshowHomeInfos.size() == 0){
+            return AppResponse.notFound("未找到数据，请重试");
+        }
         PageInfo<HotGoodsInfo> pageData = new PageInfo<HotGoodsInfo>(slideshowHomeInfos);
         return AppResponse.success("查询成功",slideshowHomeInfos);
     }
@@ -84,18 +89,14 @@ public class HotGoodsServices {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateHotGoods(HotGoodsInfo hotGoodsInfo){
         AppResponse appResponse=AppResponse.success("修改成功！");
-        List<HotGoodsInfo> hotGoodsInfos = hotGoodsDao.getGoodsCount(hotGoodsInfo);
-        for (int index=0 ; index<hotGoodsInfos.size() ; index++){
-            if(hotGoodsInfos.get(index).getGoodsId().equals(hotGoodsInfo.getGoodsId())){
-                return AppResponse.bizError("已存在商品，请重试");
-            }
-            if(hotGoodsInfos.get(index).getHotGoodsNum().equals(hotGoodsInfo.getHotGoodsNum())){
-                return AppResponse.bizError("已存在排序，请重试");
-            }
+        int count = hotGoodsDao.getGoodsCount(hotGoodsInfo);
+        if ((count & 1) == 1){
+            return AppResponse.bizError("已存在排序，修改失败");
         }
-        hotGoodsInfo.setOldVersion(hotGoodsInfo.getVersion());
-        hotGoodsInfo.setVersion(String.valueOf(Integer.parseInt(hotGoodsInfo.getVersion())+1));
-        int count = hotGoodsDao.updateHotGoods(hotGoodsInfo);
+        if ((count & 2) == 2) {
+            return AppResponse.bizError("已存在商品，修改失败");
+        }
+        count = hotGoodsDao.updateHotGoods(hotGoodsInfo);
         if (count == 0){
             appResponse=AppResponse.bizError("服务器异常，修改失败");
         }
@@ -109,6 +110,9 @@ public class HotGoodsServices {
      */
     public AppResponse getHotGoodsShowNum(){
         GoodsShowNumInfo goodsShowNumInfo = hotGoodsDao.getHotGoodsShowNum();
+        if (goodsShowNumInfo.getHotGoodsShowNum() == 0){
+            return AppResponse.notFound("展示数量为0或者未找到展示数量");
+        }
         return AppResponse.success("查询成功",goodsShowNumInfo);
     }
 
@@ -122,8 +126,6 @@ public class HotGoodsServices {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateHotGoodsShowNum(GoodsShowNumInfo goodsShowNumInfo){
         AppResponse appResponse=AppResponse.success("修改成功！");
-        goodsShowNumInfo.setOldVersion(goodsShowNumInfo.getVersion());
-        goodsShowNumInfo.setVersion(String.valueOf(Integer.parseInt(goodsShowNumInfo.getVersion())+1));
         int count = hotGoodsDao.updateHotGoodsShowNum(goodsShowNumInfo);
         if (count == 0){
             appResponse=AppResponse.bizError("服务器异常，修改失败");

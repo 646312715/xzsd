@@ -30,6 +30,9 @@ public class OrderServices {
      */
     public AppResponse getListOrder(String orderId){
         List<OrderDeepenInfo> orderDeepenList = orderDao.getListOrder(orderId);
+        if(orderDeepenList.size() == 0){
+            return AppResponse.notFound("未找到是数据");
+        }
         OrderDeepenDO orderDeepenDO = new OrderDeepenDO();
         orderDeepenDO.setOrderDeepenList(orderDeepenList);
         return AppResponse.success("查询订单详情成功",orderDeepenDO);
@@ -46,6 +49,9 @@ public class OrderServices {
     public AppResponse listOrders(OrderInfo orderInfo,String loginId){
         PageHelper.startPage(orderInfo.getPageNum(), orderInfo.getPageSize());
         List<OrderInfo> orderInfos = orderDao.listOrders(orderInfo,loginId);
+        if(orderInfos.size() == 0){
+            return AppResponse.notFound("未找到是数据");
+        }
         PageInfo<OrderInfo> pageData = new PageInfo<OrderInfo>(orderInfos);
         return AppResponse.success("查询订单列表成功！",pageData);
     }

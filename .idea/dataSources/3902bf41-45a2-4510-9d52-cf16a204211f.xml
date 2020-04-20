@@ -1534,7 +1534,7 @@
     <column id="348" parent="246" name="version">
       <Position>24</Position>
       <Comment>版本号</Comment>
-      <DataType>varchar(64)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="349" parent="246" name="PRIMARY">
@@ -1600,7 +1600,7 @@
     <column id="359" parent="247" name="version">
       <Position>10</Position>
       <Comment>版本号</Comment>
-      <DataType>varchar(64)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="360" parent="247" name="PRIMARY">
@@ -2094,7 +2094,7 @@
     <column id="439" parent="253" name="version">
       <Position>13</Position>
       <Comment>版本号</Comment>
-      <DataType>varchar(64)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="440" parent="253" name="PRIMARY">
@@ -2483,7 +2483,7 @@
     <column id="503" parent="257" name="version">
       <Position>16</Position>
       <Comment>版本号</Comment>
-      <DataType>varchar(64)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="504" parent="257" name="PRIMARY">

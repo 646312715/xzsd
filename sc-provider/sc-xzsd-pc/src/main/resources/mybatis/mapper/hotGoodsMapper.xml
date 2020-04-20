@@ -27,17 +27,23 @@
         );
     </insert>
     <!--热门商品查重-->
-    <select id="getGoodsCount" parameterType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo" resultType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo">
+    <select id="getGoodsCount" parameterType="com.xzsd.pc.hotGoods.entity.HotGoodsInfo" resultType="int">
         select
-        hot_goods_num hotGoodsNum,
-        goods_id goodsId
+        IF((select count(hot_goods_num)
         from t_info_hot_goods
         where is_delete = 0
-        and (hot_goods_num = #{hotGoodsNum}
-        or goods_id = #{goodsId})
+        and hot_goods_num = #{hotGoodsNum}
         <if test="hotGoodsId != null and hotGoodsId != ''">
             and hot_goods_id != #{hotGoodsId}
-        </if>
+        </if>)!=0,1,0)
+        +
+        IF((select count(goods_id)
+        from t_info_hot_goods
+        where is_delete = 0
+        and goods_id = #{goodsId}
+        <if test="hotGoodsId != null and hotGoodsId != ''">
+            and hot_goods_id != #{hotGoodsId}
+        </if>)!=0,2,0)
 
     </select>
     <!--查询热门商品详情-->
@@ -81,8 +87,9 @@
         hot_goods_num = #{hotGoodsNum},
         update_time = now(),
         update_user = #{updateUser},
-        version = #{version}
+        version = version + 1
         where hot_goods_id = #{hotGoodsId}
+        and version = #{version}
     </update>
     <!--查询热门商品展示数量接口-->
     <select id="getHotGoodsShowNum" resultType="com.xzsd.pc.hotGoods.entity.GoodsShowNumInfo">
@@ -99,9 +106,9 @@
         set dict_value = #{hotGoodsShowNum},
         update_user = #{updateUser},
         update_time = now(),
-        version = #{version}
+        version = version + 1
         where id = '1'
-        and version = #{oldVersion}
+        and version = #{version}
     </update>
     <!--删除热门商品-->
     <update id="deleteHotGoods" parameterType="java.lang.String">

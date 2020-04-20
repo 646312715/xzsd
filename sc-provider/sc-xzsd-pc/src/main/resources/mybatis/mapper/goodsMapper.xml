@@ -70,20 +70,13 @@
         goods_press = #{goodsPress},
         update_user = #{updateUser},
         update_time = now(),
-        version = #{version}
-
-        <!--<if test="itemState == 0">-->
-            <!--up_time =now(),-->
-        <!--</if>-->
-        <!--<if test="itemState != 0">-->
-            <!--up_time = "",-->
-        <!--</if>-->
+        version = version + 1
         where
         goods_id = #{goodsId}
         and
         is_delete = 0
         and
-        version = #{oldVersion}
+        version = #{version}
     </update>
     <!--查询商品详情-->
     <select id="getGoods" parameterType="java.lang.String" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
@@ -181,7 +174,7 @@
         update t_info_goods
         set
         is_delete = 1,
-        update_user = #{loginId},
+        update_user = #{userId},
         update_time = now()
         where goods_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
@@ -200,7 +193,7 @@
             <if test="goodsInfos.goodsStateId != 1">
             goods_shelf_time = null,
             </if>
-            version = #{goodsInfos.version},
+            version = version + 1,
             update_user = #{goodsInfos.updateUser},
             update_time = now()
             where
@@ -208,25 +201,32 @@
             and
             is_delete = 0
             and
-            version = #{goodsInfos.oldVersion};
+            version = #{goodsInfos.version};
         </foreach>
     </update>
-    <!--查询轮播图是否有该商品-->
+    <!--查询轮播图和热门商品是否有该商品-->
     <select id="checkGoods" resultType="int">
-        select count(*)
+        select
+        IF((select
+        count(*)
         from t_info_goods
         left join t_info_hot_goods
         on t_info_goods.goods_id = t_info_hot_goods.goods_id
+        where t_info_hot_goods.goods_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        )!=0,1,0)
+        +
+        IF((select
+        count(*)
+        from t_info_goods
         left join t_info_slideshow_home
         on t_info_goods.goods_id = t_info_slideshow_home.goods_id
         where t_info_slideshow_home.goods_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}
-        </foreach>
-        or t_info_hot_goods.goods_id in
-        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
-            #{item}
-        </foreach>
+        </foreach>)!=0,2,0)
     </select>
     <!--查询商品分类下拉框-->
     <select id="listGoodsClassify" parameterType="java.lang.String" resultType="com.xzsd.pc.goodsClassify.entity.GoodsClassifyInfo">

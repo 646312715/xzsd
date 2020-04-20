@@ -2,20 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.pc.driver.dao.DriverDao">
     <!--统计用户账号和手机数量-->
-    <select id="countUserAcct" parameterType="com.xzsd.pc.driver.entity.DriverInfo" resultType="com.xzsd.pc.driver.entity.DriverInfo">
-        select user_acct userAcct,
-        phone
-        from t_info_driver d
-        left join t_sys_user u
-        on d.driver_id = u.user_id
-        where d.is_delete = 0
-        and (
-        user_acct = #{userAcct}
-        or phone = #{phone}
-        )
-        <if test="driverId != null and driverId != ''">
-            and u.user_id != #{driverId}
-        </if>
+    <select id="countUserAcct" parameterType="com.xzsd.pc.driver.entity.DriverInfo" resultType="int">
+        select
+            IF((select
+            count(u.user_acct)
+            from t_info_driver d
+            left join t_sys_user u
+            on d.driver_id = u.user_id
+            where u.user_acct = #{userAcct}
+            <if test="driverId != null and driverId != ''">
+                and u.user_id != #{driverId}
+            </if>)!=0,1,0)
+            +
+            IF((select
+            count(phone)
+            from t_info_driver d
+            left join t_sys_user u
+            on d.driver_id = u.user_id
+            where phone = #{phone}
+            <if test="driverId != null and driverId != ''">
+                and u.user_id != #{driverId}
+            </if>)!=0,2,0)
     </select>
     <!--新增司机信息-->
     <insert id="addDriver" parameterType="com.xzsd.pc.driver.entity.DriverInfo">
@@ -142,10 +149,10 @@
          area_id = #{areaId},
          update_user = #{updateUser},
          update_time = now(),
-         version = #{version}
+         version = version + 1
          where 
          driver_id = #{driverId}
-         and version = #{oldVersion};
+         and version = #{version};
          update t_sys_user
          set user_name = #{userName},
          phone = #{phone},
@@ -155,8 +162,9 @@
          id_card = #{idCard},
          update_user = #{updateUser},
          update_time = now(),
-         version = #{version}
+         version = version + 1
          where user_id = #{driverId}
+         and version = #{version}
     </update>
     <!--删除司机信息-->
     <update id="deleteDriver" parameterType="java.lang.String">

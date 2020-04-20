@@ -36,8 +36,6 @@ public class MenuService {
      */
     public Map<String,Object> listMenus(String rootId,String role) {
         Map<String, Object> map = new HashMap<String, Object>();
-
-
 //        根据角色代码查询已授权的菜单代码
         if(null != role && !"".equals(role)) {
             List<Menu> menuCodeList = menuDao.listRoleMenusBy(role);
@@ -156,6 +154,9 @@ public class MenuService {
      */
     public AppResponse getMenu(String menuId){
         Menu menu = menuDao.getMenu(menuId);
+        if (menu == null){
+            return AppResponse.notFound("未找到数据");
+        }
         return AppResponse.success("查询成功",menu);
     }
 //    /**

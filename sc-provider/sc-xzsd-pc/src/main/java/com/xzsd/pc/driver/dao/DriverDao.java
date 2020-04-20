@@ -48,6 +48,6 @@ public interface DriverDao {
      * @param driverInfo 用户信息
      * @return 账号数量
      */
-    List<DriverInfo> countUserAcct(DriverInfo driverInfo);
+    int countUserAcct(DriverInfo driverInfo);
 
 }

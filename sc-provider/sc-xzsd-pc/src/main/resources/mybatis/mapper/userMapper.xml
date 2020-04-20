@@ -63,18 +63,23 @@
          is_delete=0;
     </select>
     <!--统计用户账号数量-->
-    <select id="countUserAcct" parameterType="com.xzsd.pc.user.entity.UserInfo" resultType="com.xzsd.pc.user.entity.UserInfo">
-    select user_acct userAcct,
-    phone
-    from t_sys_user
-    where is_delete = 0
-    and (
-        user_acct = #{userAcct}
-        or phone = #{phone}
-    )
-    <if test="userId != null and userId != ''">
-        and user_id != #{userId}
-    </if>
+    <select id="countUserAcct" parameterType="com.xzsd.pc.user.entity.UserInfo" resultType="int">
+        select
+        IF((select
+        count(user_acct)
+        from t_sys_user
+        where user_acct = #{userAcct}
+        <if test="userId != null and userId != ''">
+            and user_id != #{userId}
+        </if>)!=0,1,0)
+        +
+        IF((select
+        count(phone)
+        from t_sys_user
+        where phone = #{phone}
+        <if test="userId != null and userId != ''">
+            and user_id != #{userId}
+        </if>)!=0,2,0)
 
   </select>
     <!--修改用户-->

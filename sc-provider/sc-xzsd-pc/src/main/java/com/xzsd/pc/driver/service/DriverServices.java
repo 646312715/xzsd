@@ -29,11 +29,11 @@ public class DriverServices {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addDriver(DriverInfo driverInfo){
         //校验账号是否存在
-        int check = checkAcct(driverInfo);
-        if (check == 1){
+        int check = driverDao.countUserAcct(driverInfo);
+        if ((check & 1) == 1){
             return AppResponse.bizError("新增失败，账号已存在！");
         }
-        if (check == 2){
+        if ((check & 2) == 2){
             return AppResponse.bizError("新增失败，手机号码已存在！");
         }
         driverInfo.setDriverId(StringUtil.getCommonCode(2));
@@ -57,10 +57,13 @@ public class DriverServices {
      */
     public AppResponse getDriver(String driverId){
         DriverInfo driverInfo = driverDao.getDriver(driverId);
+        if (driverInfo.getDriverId() == null){
+            return AppResponse.notFound("司机信息详情无数据");
+        }
         return AppResponse.success("查询司机成功",driverInfo);
     }
     /**
-     * 查询司机信息详情
+     * 查询司机信息分页列表
      * @param driverInfo
      * @return
      * @Author feng
@@ -70,6 +73,9 @@ public class DriverServices {
         PageHelper.startPage(driverInfo.getPageNum(), driverInfo.getPageSize());
         List<DriverInfo> driverInfos = driverDao.listDrivers(driverInfo);
         // 包装Page对象
+        if(driverInfos.size() == 0){
+            return AppResponse.notFound("司机分页列表无数据");
+        }
         PageInfo<DriverInfo> pageData = new PageInfo<DriverInfo>(driverInfos);
         return AppResponse.success("查询成功！",pageData);
     }
@@ -84,19 +90,17 @@ public class DriverServices {
     public AppResponse updateDriver(DriverInfo driverInfo){
         AppResponse appResponse = AppResponse.success("修改成功");
         // 校验账号是否存在
-        int check = checkAcct(driverInfo);
-        if (check == 1){
+        int check = driverDao.countUserAcct(driverInfo);
+        if ((check & 1) == 1){
             return AppResponse.bizError("修改失败，账号已存在！");
         }
-        if (check == 2){
+        if ((check & 2) == 2){
             return AppResponse.bizError("修改失败，手机号码已存在！");
         }
-        driverInfo.setOldVersion(driverInfo.getVersion());
-        driverInfo.setVersion(String.valueOf(Integer.parseInt(driverInfo.getVersion())+1));
         // 修改用户信息
         int count = driverDao.updateDriver(driverInfo);
         if (0 == count) {
-            appResponse = AppResponse.versionError("数据有变化，请刷新！");
+            appResponse = AppResponse.bizError("数据有变化，请刷新！");
             return appResponse;
         }
         return appResponse;
@@ -118,28 +122,6 @@ public class DriverServices {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }
         return appResponse;
-    }
-    /**
-     * 检查用户和电话
-     * @param driverInfo
-     * @return
-     * @Author feng
-     * @Date 2020-04-10
-     */
-    public int checkAcct(DriverInfo driverInfo){
-        int temp = 0;
-        List<DriverInfo> driverInfos = driverDao.countUserAcct(driverInfo);
-        for (DriverInfo index : driverInfos){
-            if (index.getPhone().equals(driverInfo.getPhone())){
-                temp=2;
-                break;
-            }
-            if(index.getUserAcct().equals(driverInfo.getUserAcct())){
-                temp=1;
-                break;
-            }
-        }
-        return temp;
     }
 
 }

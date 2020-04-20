@@ -38,17 +38,7 @@ public class SlideshowHomeServices {
         if (count != 0){
             return AppResponse.bizError("已存在商品或已存在排序，请重新输入！");
         }
-        //判别是否在有效期内
-        String strNow = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString();
-//        Integer year = Integer.parseInt(strNow[0]);
-//        Integer month = Integer.parseInt(strNow[1]);
-//        Integer day = Integer.parseInt(strNow[2]);
-//        String nowDate = year.toString()+month.toString()+day.toString();
-        if (slideshowHomeInfo.getStartTime().compareTo(strNow)<= 0 && slideshowHomeInfo.getEndTime().compareTo(strNow) > 0){
-            slideshowHomeInfo.setSlideshowStateId("1");
-        }else{
-            slideshowHomeInfo.setSlideshowStateId("0");
-        }
+        slideshowHomeInfo.setSlideshowStateId("0");
         slideshowHomeInfo.setSlideshowId(StringUtil.getCommonCode(2));
         slideshowHomeInfo.setVersion("0");
         count = slideshowHomeDao.addSlideshowHome(slideshowHomeInfo);
@@ -67,6 +57,9 @@ public class SlideshowHomeServices {
     public AppResponse listSlideshowHome(SlideshowHomeInfo slideshowHomeInfo){
         PageHelper.startPage(slideshowHomeInfo.getPageNum(), slideshowHomeInfo.getPageSize());
         List<SlideshowHomeInfo> slideshowHomeInfos = slideshowHomeDao.listSlideshowHome(slideshowHomeInfo);
+        if(slideshowHomeInfos.size() == 0){
+            return AppResponse.notFound("未找到数据");
+        }
         PageInfo<SlideshowHomeInfo> pageData = new PageInfo<SlideshowHomeInfo>(slideshowHomeInfos);
         return AppResponse.success("查询成功",slideshowHomeInfos);
     }
@@ -80,6 +73,9 @@ public class SlideshowHomeServices {
     public AppResponse listGoods(GoodsInfo goodsInfo){
         PageHelper.startPage(goodsInfo.getPageNum(), goodsInfo.getPageSize());
         List<GoodsInfo> goodsInfos = slideshowHomeDao.listGoods(goodsInfo);
+        if(goodsInfos.size() == 0){
+            return AppResponse.notFound("未找到数据");
+        }
         PageInfo<GoodsInfo> pageData = new PageInfo<GoodsInfo>(goodsInfos);
         return AppResponse.success("mysql查询成功！",pageData);
     }

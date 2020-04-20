@@ -28,12 +28,12 @@ public class UserServices {
         userInfo.setUserId(StringUtil.getCommonCode(2));
         userInfo.setIsDelete(0);
         //校验账号是否存在
-        int check = checkAcct(userInfo);
-        if (check == 1){
-            return AppResponse.bizError("新增失败，账号已存在！");
+        int check = userDao.countUserAcct(userInfo);
+        if ((check & 1) == 1){
+            return AppResponse.bizError("新增用户失败，账号已存在！");
         }
-        if (check == 2){
-            return AppResponse.bizError("新增失败，手机号码已存在！");
+        if ((check & 2) == 2){
+            return AppResponse.bizError("新增用户失败，手机号码已存在！");
         }
         String password = PasswordUtils.generatePassword(userInfo.getUserPassword());
         userInfo.setUserPassword(password);
@@ -52,6 +52,9 @@ public class UserServices {
      */
     public AppResponse getUser(String userId) {
         UserInfo userInfo = userDao.getUser(userId);
+        if(userInfo == null){
+            return AppResponse.notFound("未找到数据");
+        }
         return AppResponse.success("查询成功！",userInfo);
     }
     /**
@@ -65,12 +68,12 @@ public class UserServices {
     public AppResponse updateUser(UserInfo userInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
         // 校验账号是否存在
-        int check = checkAcct(userInfo);
-        if (check == 1){
-            return AppResponse.bizError("修改失败，账号已存在！");
+        int check = userDao.countUserAcct(userInfo);
+        if ((check & 1) == 1){
+            return AppResponse.bizError("修改用户失败，账号已存在！");
         }
-        if (check == 2){
-            return AppResponse.bizError("修改失败，手机号码已存在！");
+        if ((check & 2) == 2){
+            return AppResponse.bizError("修改用户失败，手机号码已存在！");
         }
         // 修改用户信息
         String password = PasswordUtils.generatePassword(userInfo.getUserPassword());
@@ -78,9 +81,8 @@ public class UserServices {
         userInfo.setOldVersion(userInfo.getVersion());
         userInfo.setVersion(String.valueOf(Integer.parseInt(userInfo.getVersion())+1));
         int count = userDao.updateUser(userInfo);
-
         if (0 == count) {
-            appResponse = AppResponse.versionError("数据有变化，请刷新！");
+            appResponse = AppResponse.versionError("用户数据有变化，请刷新！");
             return appResponse;
         }
         return appResponse;
@@ -119,30 +121,12 @@ public class UserServices {
     public AppResponse listUsers(UserInfo userInfo) {
         PageHelper.startPage(userInfo.getPageNum(), userInfo.getPageSize());
         List<UserInfo> userInfoList = userDao.listUsers(userInfo);
+        if (userInfoList.size() == 0){
+            return AppResponse.notFound("未找到数据");
+        }
         // 包装Page对象
         PageInfo<UserInfo> pageData = new PageInfo<UserInfo>(userInfoList);
-        return AppResponse.success("查询成功！",pageData);
+        return AppResponse.success("查询用户列表成功！",pageData);
     }
-    /**
-     * 检查用户和电话
-     * @param userInfo
-     * @return
-     * @Author feng
-     * @Date 2020-04-10
-     */
-    public int checkAcct(UserInfo userInfo){
-        int temp = 0;
-        List<UserInfo> userInfos = userDao.countUserAcct(userInfo);
-        for (UserInfo index : userInfos){
-            if(index.getUserAcct().equals(userInfo.getUserAcct())){
-                temp=1;
-                break;
-            }
-            if (index.getPhone().equals(userInfo.getPhone())){
-                temp=2;
-                break;
-            }
-        }
-        return temp;
-    }
+
 }

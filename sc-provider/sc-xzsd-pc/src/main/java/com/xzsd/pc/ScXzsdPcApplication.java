@@ -3,6 +3,7 @@ package com.xzsd.pc;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -18,7 +19,7 @@ import javax.annotation.Resource;
  *
  * @author 杨洲 yangzhou@neusoft.com
  */
-@SpringBootApplication
+
 @EnableDiscoveryClient
 @EnableResourceServer
 @EnableSwagger2
@@ -26,6 +27,7 @@ import javax.annotation.Resource;
 @MapperScan("com.xzsd.pc.*.dao")
 @EnableRedisHttpSession
 
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class ScXzsdPcApplication {
 
     @Resource

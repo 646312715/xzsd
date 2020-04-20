@@ -89,10 +89,6 @@ public class DriverInfo {
      * 版本号
      */
     private String version;
-    /**
-     * 旧版本号
-     */
-    private String oldVersion;
 
     public String getDriverId() {
         return driverId;
@@ -270,11 +266,4 @@ public class DriverInfo {
         this.version = version;
     }
 
-    public String getOldVersion() {
-        return oldVersion;
-    }
-
-    public void setOldVersion(String oldVersion) {
-        this.oldVersion = oldVersion;
-    }
 }

@@ -63,5 +63,5 @@ public interface HotGoodsDao {
      * @param hotGoodsInfo
      * @return
      */
-    List<HotGoodsInfo> getGoodsCount(HotGoodsInfo hotGoodsInfo);
+    int getGoodsCount(HotGoodsInfo hotGoodsInfo);
 }

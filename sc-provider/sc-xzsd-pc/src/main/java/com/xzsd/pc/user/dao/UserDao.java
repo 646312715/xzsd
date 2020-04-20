@@ -15,7 +15,7 @@ public interface UserDao {
      * @param userInfo 用户信息
      * @return 账号数量
      */
-    List<UserInfo> countUserAcct(UserInfo userInfo);
+    int countUserAcct(UserInfo userInfo);
     /**
      * 新增用户
      * @param userInfo 用户信息

@@ -41,7 +41,7 @@ public enum AppResponseStatus {
     /**
      * 未知异常
      */
-    UNKNOWN_EXCEPTION(3000),
+    UNKNOWN_EXCEPTION(5),
 
     /**
      * 调用端异常
@@ -61,7 +61,7 @@ public enum AppResponseStatus {
     /**
      * 业务异常
      */
-    BIZ_ERROR(10000),
+    BIZ_ERROR(-1),
 
     /**
      * 验证码错误

@@ -30,7 +30,8 @@
     <select id="getGoodsClassify" parameterType="java.lang.String" resultType="com.xzsd.pc.goodsClassify.entity.GoodsClassifyInfo">
         select
         classify_name classifyName,
-        classify_comment classifyComment
+        classify_comment classifyComment,
+        classify_id classifyId
         from t_info_goods_classify
         where classify_id = #{classifyId}
         and is_delete = 0
@@ -53,12 +54,10 @@
        classify_comment = #{classifyComment},
        update_user = #{updateUser},
        update_time = now(),
-       version = #{version}
+       version = version + 1
        where
-       version = #{oldVersion}
+       version = #{version}
        and classify_id = #{classifyId};
-
-
     </update>
     <!--删除商品分类-->
     <update id="deleteGoodsClassify" parameterType="java.lang.String">

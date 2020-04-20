@@ -21,6 +21,9 @@ public class TopOfColumnServices {
      */
     public AppResponse getTopOfColumn(String userId){
         TopOfColumnInfo topOfColumnInfo = topOfColumnDao.getTopOfColumn(userId);
+        if(topOfColumnInfo == null){
+            return AppResponse.notFound("未找到数据");
+        }
         return AppResponse.success("顶部栏查询成功",topOfColumnInfo);
     }
 }
