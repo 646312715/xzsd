@@ -17,5 +17,10 @@ public interface ClientHomeDao {
      * 查询热门商品接口
      * @return
      */
-    List<HotGoodsInfo> listHotGoods();
+    List<HotGoodsInfo> listHotGoods(int hotGoodsShowNum);
+    /**
+     * 查询热门商品位展示数量
+     * @return
+     */
+    int getHotGoodsShowNum();
 }

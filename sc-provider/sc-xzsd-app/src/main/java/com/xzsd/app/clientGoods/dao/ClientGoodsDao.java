@@ -42,4 +42,6 @@ public interface ClientGoodsDao {
      * @return
      */
     List<ClientGoodsInfo> listGetClassGoods(String classifyId);
+
+
 }

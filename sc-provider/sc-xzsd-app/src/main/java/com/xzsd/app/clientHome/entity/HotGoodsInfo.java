@@ -22,7 +22,6 @@ public class HotGoodsInfo {
      */
     private String goodsPrice;
 
-
     public String getGoodsId() {
         return goodsId;
     }

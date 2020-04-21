@@ -69,4 +69,10 @@
          classify_id = #{classifyId}
          ;
     </update>
+    <!--查询子分类列表-->
+    <select id="getGoodsClassifyCount" parameterType="java.lang.String" resultType="int">
+        select count(*)
+        from t_info_goods_classify
+        where classify_parent = #{classifyId}
+    </select>
 </mapper>

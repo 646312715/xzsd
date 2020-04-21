@@ -35,4 +35,6 @@ public interface GoodsClassifyDao {
      * @return
      */
     int deleteGoodsClassify(@Param("classifyId") String classifyId,@Param("userId") String userId);
+
+    int getGoodsClassifyCount(String classifyId);
 }

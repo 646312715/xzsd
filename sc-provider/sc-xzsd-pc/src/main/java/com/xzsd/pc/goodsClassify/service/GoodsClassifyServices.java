@@ -120,7 +120,11 @@ public class GoodsClassifyServices {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse deleteGoodsClassify(String classifyId, String userId) {
-        int count = goodsClassifyDao.deleteGoodsClassify(classifyId, userId);
+        int count = goodsClassifyDao.getGoodsClassifyCount(classifyId);
+        if(count != 0){
+            return AppResponse.bizError("有子分类不可删除");
+        }
+        count = goodsClassifyDao.deleteGoodsClassify(classifyId, userId);
         AppResponse appResponse = AppResponse.success("删除成功！");
         if (0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");

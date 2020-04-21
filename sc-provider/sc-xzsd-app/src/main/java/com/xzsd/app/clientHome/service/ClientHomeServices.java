@@ -39,7 +39,8 @@ public class ClientHomeServices {
      * @author feng
      */
     public AppResponse listHotGoods(){
-        List<HotGoodsInfo> hotGoodsInfos = clientHomeDao.listHotGoods();
+        int hotGoodsShowNum = clientHomeDao.getHotGoodsShowNum();
+        List<HotGoodsInfo> hotGoodsInfos = clientHomeDao.listHotGoods(hotGoodsShowNum);
         if (hotGoodsInfos.size() == 0){
             return AppResponse.notFound("未找到数据");
         }

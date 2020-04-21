@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.clientShopCart.dao.ClientShopCartDao">
+   <!--新增购物车-->
+    <insert id="addShoppingCart" parameterType="com.xzsd.app.clientShopCart.entity.ClientShopCartInfo">
+       insert into t_info_shopping_cart(
+          shop_cart_id,
+          user_id,
+          goods_id,
+          cart_goods_count,
+          cart_all_price,
+          is_delete,
+          create_time,
+          create_user,
+          update_time,
+          update_user,
+          version
+        ) values (
+        #{shopCartId},
+        #{userId},
+        #{goodsId},
+        #{cartGoodsCount},
+        #{cartAllPrice},
+        #{isDelete},
+        now(),
+        #{createUser},
+        now(),
+        #{updateUser},
+        #{version}
+        );
+   </insert>
+    <!--商品价格查询-->
+    <select id="getGoodsPrice" parameterType="java.lang.String" resultType="java.lang.String">
+        select goods_price
+        from t_info_goods
+        where goods_id = #{goodsId}
+    </select>
+    <!--查询购物车-->
+    <select id="listShoppingCarts" parameterType="java.lang.String" resultType="com.xzsd.app.clientShopCart.entity.ClientShopCartInfo">
+        select c.goods_id goodsId,
+        goods_name goodsName,
+        goods_image_path goodsImagePath,
+        goods_price goodsPrice,
+        cart_goods_count cartGoodsCount,
+        shop_cart_id shopCartId
+        from t_info_shopping_cart c
+        left join t_info_goods g
+        on c.goods_id = g.goods_id
+        where user_id = #{userId}
+        and c.is_delete = 0
+        order by c.update_time desc
+    </select>
+    <!--修改购物车-->
+    <update id="updateShoppingCart" parameterType="com.xzsd.app.clientShopCart.entity.ClientShopCartInfo">
+        update t_info_shopping_cart
+        set cart_goods_count = #{cartGoodsCount},
+        update_time = now(),
+        version = version + 1
+        where shop_cart_id = #{shopCartId}
+    </update>
+    <!--删除购物车-->
+    <update id="deleteShoppingCart" parameterType="java.lang.String">
+        update t_info_shopping_cart
+        set is_delete = 1,
+        update_time = now()
+        where shop_cart_id in
+        <foreach item="item" index="index" collection="shopCartIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!--购物车详情-->
+    <select id="getShoppingCart" parameterType="java.lang.String" resultType="com.xzsd.app.clientShopCart.entity.ClientShopCartInfo">
+        select cart_goods_count cartGoodsCount,
+        shop_cart_id shopCartId
+        from t_info_shopping_cart
+        where is_delete = 0
+        and user_id = #{userId}
+        and goods_id = #{goodsId}
+    </select>
+</mapper>
