@@ -96,7 +96,7 @@ public class GoodsController {
         try {
             return goodsServices.getGoods(goodsId);
         } catch (Exception e) {
-            logger.error("用户查询错误", e);
+            logger.error("商品详情查询错误", e);
             System.out.println(e.toString());
             throw e;
         }
@@ -114,7 +114,7 @@ public class GoodsController {
             String userId = SecurityUtils.getCurrentUserId();
             return goodsServices.deleteGoods(userId,goodsId);
         } catch (Exception e) {
-            logger.error("商品查询错误", e);
+            logger.error("商品删除错误", e);
             System.out.println(e.toString());
             throw e;
         }

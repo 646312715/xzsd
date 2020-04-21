@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.register.dao.RegisterDao">
+    <!--新增用户-->
+    <insert id="clientRegister" parameterType="com.xzsd.app.register.entity.RegisterInfo">
+        insert into t_sys_user(
+        user_id,
+        user_acct,
+        user_password,
+        user_name,
+        sex,
+        phone,
+        mail,
+        id_card,
+        role,
+        user_image,
+        is_delete,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        version
+        ) values (
+        #{userId},
+        #{userAcct},
+        #{userPassword},
+        #{userName},
+        #{sex},
+        #{phone},
+        #{mail},
+        #{idCard},
+        #{role},
+        #{userImage},
+        #{isDelete},
+        #{createUser},
+        now(),
+        #{updateUser},
+        now(),
+        #{version}
+        );
+        insert into t_info_client
+        (user_id,
+        invite_code,
+        is_delete,
+        create_time,
+        create_user,
+        update_time,
+        update_user,
+        version
+        ) values (
+        #{userId},
+        #{inviteCode},
+        #{isDelete},
+        now(),
+        #{createUser},
+        now(),
+        #{updateUser},
+        #{version}
+        )
+    </insert>
+    <!--查重-->
+    <select id="countUserAcct" parameterType="com.xzsd.app.register.entity.RegisterInfo" resultType="int">
+        select
+        IF((select
+        count(user_acct)
+        from t_sys_user
+        where user_acct = #{userAcct}
+        <if test="userId != null and userId != ''">
+            and user_id != #{userId}
+        </if>)!=0,1,0)
+        +
+        IF((select
+        count(phone)
+        from t_sys_user
+        where phone = #{phone}
+        <if test="userId != null and userId != ''">
+            and user_id != #{userId}
+        </if>)!=0,2,0)
+        +
+        IF((select
+        count(invite_code)
+        from t_info_client
+        where invite_code = #{inviteCode}
+        )=0,4,0)
+    </select>
+</mapper>

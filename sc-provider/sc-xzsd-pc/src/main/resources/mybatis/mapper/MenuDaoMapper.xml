@@ -206,7 +206,8 @@
     <!--根据角色代码查询已授权的菜单信息-->
     <select id="listRoleMenusBy" resultType="com.xzsd.pc.menu.entity.Menu">
         select  menu_id menuId,
-        menu_name menuName
+        menu_name menuName,
+        menu_path menuPath
         from t_sys_menu
         where is_delete = 0
         <if test="roleCode == 2">
