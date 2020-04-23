@@ -7,8 +7,10 @@
         isbn,
         goods_name goodsName,
         goods_price goodsPrice,
-        goods_inventory goodsInventory,
         goods_describe goodsDescribe,
+        goods_image_path goodsImagePath,
+        all_score allScore,
+        goods_sales goodsSales,
         goods_author goodsAuthor,
         goods_press goodsPress
         from

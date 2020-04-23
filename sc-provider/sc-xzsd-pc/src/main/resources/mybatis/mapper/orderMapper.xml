@@ -9,9 +9,9 @@
         d.order_id orderId,
         d.goods_id goodsId,
         goods_name goodsName,
-        goods_count goodsCount,
+        client_goods_num goodsCount,
         the_goods_all_price theGoodsAllPrice,
-        goods_price goodsPrice,
+        the_goods_all_price goodsPrice,
         goods_original_cost goodsShelfCost
         from t_info_order_deepen d
         left join t_info_order o
@@ -19,6 +19,7 @@
         left join t_info_goods g
         on d.goods_id = g.goods_id
         where d.order_id = #{orderId}
+        and d.is_delete = 0
     </select>
     <!--分页查询订单-->
     <select id="listOrders" parameterType="com.xzsd.pc.order.entity.OrderInfo" resultType="com.xzsd.pc.order.entity.OrderInfo">

@@ -9,6 +9,10 @@ public class CommentInfo {
      */
     private String goodsId;
     /**
+     * 用户编号
+     */
+    private String userId;
+    /**
      * 用户账号
      */
     private String userAcct;
@@ -25,7 +29,7 @@ public class CommentInfo {
      */
     private int evaluateScore;
     /**
-     * 评价图片列表
+     * 评价图片输出列表
      */
     private List<ImageDO> imageList = new ArrayList<ImageDO>();
     /**
@@ -63,6 +67,18 @@ public class CommentInfo {
 
     public String getGoodsId() {
         return goodsId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setImageList(List<ImageDO> imageList) {
+        this.imageList = imageList;
     }
 
     public void setGoodsId(String goodsId) {

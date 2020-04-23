@@ -32,6 +32,11 @@ public class ClientGoodsServices {
         if (clientGoodsInfo == null){
             return AppResponse.notFound("未找到商品数据");
         }
+        if(clientGoodsInfo.getGoodsSales() != 0){
+            clientGoodsInfo.setGoodsEvaluateScore(String.valueOf((double)clientGoodsInfo.getAllScore()/clientGoodsInfo.getGoodsSales()));
+        }else{
+            clientGoodsInfo.setGoodsEvaluateScore("0.0");
+        }
         return AppResponse.success("查询商品详情成功",clientGoodsInfo);
     }
 

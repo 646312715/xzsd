@@ -57,6 +57,43 @@ public class ClientGoodsInfo {
      * 图片路径
      */
     private String goodsImagePath;
+    /**
+     * 商品评价等级
+     */
+    private String goodsEvaluateScore;
+
+    /**
+     * 全部分数
+     */
+    private int allScore;
+    /**
+     * 订单数
+     */
+    private int goodsSales;
+
+    public int getAllScore() {
+        return allScore;
+    }
+
+    public void setAllScore(int allScore) {
+        this.allScore = allScore;
+    }
+
+    public int getGoodsSales() {
+        return goodsSales;
+    }
+
+    public void setGoodsSales(int goodsSales) {
+        this.goodsSales = goodsSales;
+    }
+
+    public String getGoodsEvaluateScore() {
+        return goodsEvaluateScore;
+    }
+
+    public void setGoodsEvaluateScore(String goodsEvaluateScore) {
+        this.goodsEvaluateScore = goodsEvaluateScore;
+    }
 
     public String getGoodsId() {
         return goodsId;

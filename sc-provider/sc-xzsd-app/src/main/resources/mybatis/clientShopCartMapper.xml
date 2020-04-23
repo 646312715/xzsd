@@ -67,6 +67,7 @@
         <foreach item="item" index="index" collection="shopCartIds" open="(" separator="," close=")">
             #{item}
         </foreach>
+        and is_delete = 0
     </update>
     <!--购物车详情-->
     <select id="getShoppingCart" parameterType="java.lang.String" resultType="com.xzsd.app.clientShopCart.entity.ClientShopCartInfo">

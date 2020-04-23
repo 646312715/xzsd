@@ -54,11 +54,19 @@ public class OrderController {
             throw e;
         }
     }
+
+    /**
+     * 修改订单状态
+     * @param orderInfo
+     * @return
+     * @Author feng
+     * @Date 2020-04-14
+     */
     @PostMapping("updateOrderState")
-    public AppResponse updateOrderState(OrderInfo OrderInfo){
+    public AppResponse updateOrderState(OrderInfo orderInfo){
         try{
-            OrderInfo.setUpdateUser(SecurityUtils.getCurrentUserId());
-            return orderServices.updateOrderState(OrderInfo);
+            orderInfo.setUpdateUser(SecurityUtils.getCurrentUserId());
+            return orderServices.updateOrderState(orderInfo);
         }catch (Exception e){
             logger.error("订单状态修改失败", e);
             System.out.println(e.toString());
