@@ -26,9 +26,10 @@ public interface ClientOrderDao {
     /**
      * 查询订单列表接口
      * @param orderStateId
+     * @param userId
      * @return
      */
-    List<ClientOrderInfo> listOrder(@Param("orderStateId") String orderStateId);
+    List<ClientOrderInfo> listOrder(@Param("orderStateId") String orderStateId,@Param("userId") String userId);
 
     /**
      * 查询订单商品列表接口

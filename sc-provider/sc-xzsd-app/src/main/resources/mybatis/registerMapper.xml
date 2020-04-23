@@ -79,7 +79,7 @@
         +
         IF((select
         count(invite_code)
-        from t_info_client
+        from t_info_store
         where invite_code = #{inviteCode}
         )=0,4,0)
     </select>

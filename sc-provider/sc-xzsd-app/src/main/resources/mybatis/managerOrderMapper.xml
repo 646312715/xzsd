@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.managerOrder.dao.ManagerOrderDao">
+    <!--查询订单商品-->
+    <select id="listManagerOrdersGoods" parameterType="java.lang.String" resultType="com.xzsd.app.managerOrder.entity.ManagerOrderGoodsInfo">
+        select d.goods_id goodsId,
+        goods_name goodsName,
+        goods_image_path goodsImagePath,
+        goods_describe goodsDescribe,
+        goods_price goodsPrice,
+        client_goods_num cartGoodsCount,
+        order_id orderId
+        from t_info_order_deepen d
+        left join t_info_goods g
+        on d.goods_id = g.goods_id
+        where d.is_delete = 0
+        and d.order_id in
+       <foreach item="item" index="index" collection="orderIds" open="(" separator="," close=")">
+            #{item}
+       </foreach>
+       order by d.create_time desc
+    </select>
+    <!--查询订单-->
+    <select id="listManagerOrders" parameterType="java.lang.String" resultType="com.xzsd.app.managerOrder.entity.ManagerOrderInfo">
+        select  order_id orderId,
+        order_state_id orderStateId,
+        order_all_cost orderAllCost,
+        order_all_goods_count orderAllGoodsCount,
+        o.user_id userId,
+        store_name storeName,
+        user_name userName,
+        address,
+        u.phone,
+        o.version
+        from t_info_order o
+        left join t_sys_user u
+        on o.user_id = u.user_id
+        left join t_info_store s
+        on s.store_id = o.store_id
+        where o.is_delete = 0
+        and s.user_id = #{userId}
+        <if test="orderStateId != null and orderStateId != ''">
+            and order_state_id = #{orderStateId}
+        </if>
+        order by o.create_time desc
+    </select>
+    <!--订单状态修改-->
+    <update id="updateManagerOrderState" parameterType="com.xzsd.app.managerOrder.entity.ManagerOrderInfo">
+            update t_info_order
+            set
+            order_state_id = #{orderStateId},
+            version = version + 1,
+            update_user = #{updateUser},
+            update_time = now()
+            where
+            order_id = #{orderId}
+            and
+            is_delete = 0
+            <if test="version != null and version != ''">
+            and version = #{version}
+            </if>
+    </update>
+    <!--查询订单详情-->
+    <select id="listManagerOrderDeepen" parameterType="java.lang.String" resultType="com.xzsd.app.managerOrder.entity.ManagerOrderInfo">
+        select
+        store_name storeName,
+        address,
+        order_all_cost orderAllCost,
+        order_all_goods_count orderAllGoodsCount,
+        order_id orderId,
+        o.create_time createTime,
+        order_state_id orderStateId,
+        user_name userName,
+        u.phone
+        from t_info_order o
+        left join t_info_store s
+        on o.store_id = s.store_id
+        left join t_sys_user u
+        on o.user_id = u.user_id
+        where o.is_delete = 0
+        and order_id = #{orderId}
+    </select>
+</mapper>

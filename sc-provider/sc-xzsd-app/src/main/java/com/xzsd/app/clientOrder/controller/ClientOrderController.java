@@ -47,6 +47,8 @@ public class ClientOrderController {
     @PostMapping("listOrder")
     public AppResponse listOrder(ClientOrderInfo clientOrderInfo){
         try{
+            String userId = SecurityUtils.getCurrentUserId();
+            clientOrderInfo.setUserId(userId);
             return clientOrderServices.listOrder(clientOrderInfo);
         }catch (Exception e){
             logger.error("查询订单失败", e);

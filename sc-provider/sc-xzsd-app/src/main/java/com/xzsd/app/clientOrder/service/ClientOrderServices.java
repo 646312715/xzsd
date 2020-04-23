@@ -106,8 +106,9 @@ public class ClientOrderServices {
     public AppResponse listOrder(ClientOrderInfo clientOrderInfo){
         PageHelper.startPage(clientOrderInfo.getPageNum(), clientOrderInfo.getPageSize());
         String orderStateId = clientOrderInfo.getOrderStateId();
+        String userId = clientOrderInfo.getUserId();
         //查找订单
-        List<ClientOrderInfo> clientOrderInfoList = clientOrderDao.listOrder(orderStateId);
+        List<ClientOrderInfo> clientOrderInfoList = clientOrderDao.listOrder(orderStateId,userId);
         if (clientOrderInfoList.size() == 0){
             return AppResponse.notFound("未找到订单");
         }

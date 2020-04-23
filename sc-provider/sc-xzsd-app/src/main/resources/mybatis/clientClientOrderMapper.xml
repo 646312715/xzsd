@@ -75,7 +75,8 @@
         from t_info_order_deepen d
         left join t_info_goods g
         on d.goods_id = g.goods_id
-        where d.order_id in
+        where d.is_delete = 0
+        and d.order_id in
        <foreach item="item" index="index" collection="orderIds" open="(" separator="," close=")">
             #{item}
        </foreach>
@@ -89,8 +90,10 @@
         order_all_goods_count orderAllGoodsCount,
         version
         from t_info_order
+        where o.is_delete = 0
+        and o.user_id = #{userId}
         <if test="orderStateId != null and orderStateId != ''">
-            where order_state_id = #{orderStateId}
+            and order_state_id = #{orderStateId}
         </if>
         order by create_time desc
     </select>

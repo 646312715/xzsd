@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.clientInformation.dao.ClientInformationDao">
+    <update id="updateClientInvite" parameterType="com.xzsd.app.clientInformation.entity.ClientInformationInfo">
+        update t_info_client
+        set invite_code = #{inviteCode}
+        where user_id = #{userId}
+    </update>
+    <select id="checkInviteCode" parameterType="java.lang.String" resultType="int">
+        select
+        count(invite_code)
+        from t_info_store
+        where invite_code = #{inviteCode}
+    </select>
+</mapper>
