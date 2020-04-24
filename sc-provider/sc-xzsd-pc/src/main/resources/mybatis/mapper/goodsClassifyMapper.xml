@@ -31,7 +31,8 @@
         select
         classify_name classifyName,
         classify_comment classifyComment,
-        classify_id classifyId
+        classify_parent classifyParent,
+        version
         from t_info_goods_classify
         where classify_id = #{classifyId}
         and is_delete = 0

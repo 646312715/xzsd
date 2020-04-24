@@ -61,7 +61,7 @@ public class SlideshowHomeServices {
             return AppResponse.notFound("未找到数据");
         }
         PageInfo<SlideshowHomeInfo> pageData = new PageInfo<SlideshowHomeInfo>(slideshowHomeInfos);
-        return AppResponse.success("查询成功",slideshowHomeInfos);
+        return AppResponse.success("查询成功",pageData);
     }
     /**
      * 商品列表查询

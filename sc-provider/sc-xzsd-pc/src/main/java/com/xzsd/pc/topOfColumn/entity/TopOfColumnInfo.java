@@ -49,4 +49,14 @@ public class TopOfColumnInfo {
     public void setRole(String role) {
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "TopOfColumnInfo{" +
+                "userName='" + userName + '\'' +
+                ", userImage='" + userImage + '\'' +
+                ", userId='" + userId + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }

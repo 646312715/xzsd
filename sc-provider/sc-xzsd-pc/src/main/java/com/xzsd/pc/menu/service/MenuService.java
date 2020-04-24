@@ -122,11 +122,22 @@ public class MenuService {
         }
         menu.setMenuId(menuId);
         menu.setIsDelete(0);
-        // 新增菜单
-        int count = menuDao.insertMenu(menu);
+        //获取可点击角色
+        List<String> roles = null;
+        if(menu.getRole() != null) {
+            roles = Arrays.asList(menu.getRole().split(","));
+        }else {
+            roles = new ArrayList<String>();
+            roles.add("0");
+            roles.add("1");
+            roles.add("2");
+        }
+        int count = menuDao.insertMenu(menu, roles);
         if(0 == count) {
             appResponse = AppResponse.bizError("新增失败，请重试！");
         }
+        // 新增菜单
+
         return appResponse;
     }
     /**

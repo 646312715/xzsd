@@ -52,7 +52,7 @@ public class UserController {
      * @author feng
      * @Date 2020-03-21
      */
-    @RequestMapping(value = "findUserById")
+    @RequestMapping(value = "getUser")
     public AppResponse getUser(String userId) {
         try {
             return userServices.getUser(userId);

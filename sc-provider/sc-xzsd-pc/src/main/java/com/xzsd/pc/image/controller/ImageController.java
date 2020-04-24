@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/imageUpload")
 public class ImageController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -24,12 +24,12 @@ public class ImageController {
     private ImageServices imageServices;
 
     @PostMapping("uploadImage")
-    public AppResponse uploadImage(String userId, @RequestParam("multipartFile") MultipartFile multipartFile) throws Exception {
+    public AppResponse uploadImage(@RequestParam MultipartFile imageFile) throws Exception {
         try{
-            String key = "image/"+userId+"/user/"+ StringUtil.getCommonCode(2)+".jpg";
+            String key = "image/"+ StringUtil.getCommonCode(2)+".jpg";
             System.out.println(key);
 
-            return imageServices.uploadImage(key, multipartFile);
+            return imageServices.uploadImage(key, imageFile);
         } catch (Exception e) {
             logger.error("用户新增失败", e);
             System.out.println(e.toString());

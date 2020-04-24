@@ -26,9 +26,9 @@ public class TopOfColumnController {
      * @Date 2020-04-16
      */
     @PostMapping("getTopOfColumn")
-    public AppResponse getTopOfColumn(String userId){
+    public AppResponse getTopOfColumn(){
         try{
-//            String userId = SecurityUtils.getCurrentUserId();
+            String userId = SecurityUtils.getCurrentUserId();
             return topOfColumnServices.getTopOfColumn(userId);
         }catch (Exception e){
             logger.error("用户查询失败", e);

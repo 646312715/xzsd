@@ -21,7 +21,7 @@ spring:
     name: dataSource
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/xzsd?useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true
+    url: jdbc:mysql://127.0.0.1:3306/xzsd?serverTimezone=UTC&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true
     username: root
     password: qw51515456
     druid:
@@ -62,8 +62,8 @@ mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
 sc:
   cloud:
-    dev: true
-#    debug: true
+#    dev: true
+    debug: true
     task:
       core-pool-size: 20
       max-pool-size: 50

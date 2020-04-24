@@ -7,6 +7,7 @@
         (user_id,
          user_acct,
          user_password,
+         password,
          user_name,
          sex,
          phone,
@@ -25,6 +26,7 @@
            (#{userId},
             #{userAcct},
             #{userPassword},
+            #{password},
             #{userName},
             #{sex},
             #{phone},
@@ -45,7 +47,7 @@
         select
           user_id userId,
           user_acct userAcct,
-          user_password userPassword,
+          password userPassword,
           user_name userName,
           sex,
           phone,
@@ -87,6 +89,7 @@
         update t_sys_user set
          user_acct = #{userAcct},
          user_password = #{userPassword},
+         password = #{password},
          user_name = #{userName},
          sex = #{sex},
          phone = #{phone},
@@ -124,6 +127,7 @@
         user_acct userAcct,
         user_password userPassword,
         id_card idCard,
+        role,
         sex,
         phone,
         mail,
@@ -138,6 +142,9 @@
         </if>
         <if test="role != null and role != ''">
             and role like concat('%', #{role}, '%')
+        </if>
+        <if test="role == null or role == ''">
+            and role in (1,2)
         </if>
         order by create_time desc
 

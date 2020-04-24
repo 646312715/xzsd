@@ -245,7 +245,6 @@ public class GoodsInfo {
     public void setGoodsShelfTime(String goodsShelfTime) {
         this.goodsShelfTime = goodsShelfTime;
     }
-
     public String getSupplierName() {
         return supplierName;
     }

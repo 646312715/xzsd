@@ -32,7 +32,7 @@ public class UserInfo {
     /**
      * 性别 0 男 1 女
      */
-    private int sex;
+    private String sex;
     /**
      * 手机号码
      */
@@ -81,6 +81,16 @@ public class UserInfo {
      */
     private String oldVersion;
 
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getOldVersion() {
         return oldVersion;
     }
@@ -128,11 +138,11 @@ public class UserInfo {
         this.userName = userName;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -245,17 +255,18 @@ public class UserInfo {
                 ", userAcct='" + userAcct + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", idCard='" + idCard + '\'' +
-                ", sex='" + sex + '\'' +
+                ", sex=" + sex +
                 ", phone='" + phone + '\'' +
                 ", mail='" + mail + '\'' +
                 ", userImage='" + userImage + '\'' +
-                ", isDelete='" + isDelete + '\'' +
+                ", isDelete=" + isDelete +
                 ", createTime='" + createTime + '\'' +
                 ", createUser='" + createUser + '\'' +
                 ", updateTime='" + updateTime + '\'' +
                 ", updateUser='" + updateUser + '\'' +
                 ", role='" + role + '\'' +
                 ", version='" + version + '\'' +
+                ", oldVersion='" + oldVersion + '\'' +
                 '}';
     }
 }

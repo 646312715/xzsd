@@ -50,9 +50,10 @@ public class GoodsClassifyServices {
      * @Date 2020-04-13
      */
     public AppResponse getGoodsClassify(String classifyId) {
+        System.out.println("classifyId"+classifyId);
         GoodsClassifyInfo goodsClassifyInfo = goodsClassifyDao.getGoodsClassify(classifyId);
         System.out.println(goodsClassifyInfo);
-        if (goodsClassifyInfo.getClassifyId() == null) {
+        if (goodsClassifyInfo == null) {
             return AppResponse.notFound("未找到数据");
         }
         return AppResponse.success("查询成功", goodsClassifyInfo);

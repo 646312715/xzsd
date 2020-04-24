@@ -98,6 +98,11 @@ public class GoodsServices {
     public AppResponse listGoods(GoodsInfo goodsInfo) {
         PageHelper.startPage(goodsInfo.getPageNum(), goodsInfo.getPageSize());
         List<GoodsInfo> goodsInfoList = goodsDao.listGoods(goodsInfo);
+        for (int index=0 ; index < goodsInfoList.size() ; index++){
+            if(goodsInfoList.get(index).getGoodsShelfTime() != null){
+                goodsInfoList.get(index).setGoodsShelfTime(goodsInfoList.get(index).getGoodsShelfTime().replace(".0",""));
+            }
+        }
         if (goodsInfoList.size() == 0) {
             return AppResponse.notFound("查询无数据！");
         }

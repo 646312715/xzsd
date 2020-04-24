@@ -76,7 +76,7 @@ public class HotGoodsServices {
             return AppResponse.notFound("未找到数据，请重试");
         }
         PageInfo<HotGoodsInfo> pageData = new PageInfo<HotGoodsInfo>(slideshowHomeInfos);
-        return AppResponse.success("查询成功",slideshowHomeInfos);
+        return AppResponse.success("查询成功",pageData);
     }
 
     /**

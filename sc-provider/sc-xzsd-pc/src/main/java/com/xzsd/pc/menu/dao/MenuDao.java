@@ -58,9 +58,10 @@ public interface MenuDao {
     /**
      * 新增菜单
      * @param menu 菜单信息
+     * @param roles
      * @return
      */
-    int insertMenu(Menu menu);
+    int insertMenu(@Param("menu") Menu menu,@Param("roles") List<String> roles);
 
     /**
      * 修改菜单

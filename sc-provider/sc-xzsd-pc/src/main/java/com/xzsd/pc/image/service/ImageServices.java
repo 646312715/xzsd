@@ -8,6 +8,7 @@ import com.qcloud.cos.auth.COSCredentials;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.model.PutObjectResult;
 import com.qcloud.cos.region.Region;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class ImageServices {
@@ -51,9 +54,11 @@ public class ImageServices {
         // 关闭客户端(关闭后台线程)
         delteTempFile(localFile);
         cosClient.shutdown();
-        String resultKey = bucketName+".cos.ap-guangzhou.myqcloud.com/"+key;
-        System.out.println(resultKey);
-        return AppResponse.success("图片上传成功",resultKey);
+        String imagePath = "https://"+bucketName+".cos.ap-guangzhou.myqcloud.com/"+key;
+        System.out.println(imagePath);
+        Map<String,String> map = new HashMap<String, String>();
+        map.put("imagePath",imagePath);
+        return AppResponse.success("图片上传成功",map);
     }
 
 //    public static File multipartFileToFile(MultipartFile file) throws Exception {

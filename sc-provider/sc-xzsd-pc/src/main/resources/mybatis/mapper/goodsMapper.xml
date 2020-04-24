@@ -155,7 +155,7 @@
         <if test="goodsName != null and goodsName != ''">
             and goods_name like concat('%', #{goodsName}, '%')
         </if>
-        <if test="goodsStateId != null and goodsName != ''">
+        <if test="goodsStateId != null and goodsStateId != ''">
             and goods_state_id = #{goodsStateId}
         </if>
         <if test="goodsAdvertise != null and goodsAdvertise != ''">

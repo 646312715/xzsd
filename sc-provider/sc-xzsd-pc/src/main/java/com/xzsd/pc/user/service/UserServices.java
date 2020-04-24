@@ -35,6 +35,7 @@ public class UserServices {
         if ((check & 2) == 2){
             return AppResponse.bizError("新增用户失败，手机号码已存在！");
         }
+        userInfo.setPassword(userInfo.getUserPassword());
         String password = PasswordUtils.generatePassword(userInfo.getUserPassword());
         userInfo.setUserPassword(password);
         int count = userDao.addUser(userInfo);
@@ -53,7 +54,7 @@ public class UserServices {
     public AppResponse getUser(String userId) {
         UserInfo userInfo = userDao.getUser(userId);
         if(userInfo == null){
-            return AppResponse.notFound("未找到数据");
+            return AppResponse.notFound("未找到用户数据");
         }
         return AppResponse.success("查询成功！",userInfo);
     }
@@ -76,6 +77,7 @@ public class UserServices {
             return AppResponse.bizError("修改用户失败，手机号码已存在！");
         }
         // 修改用户信息
+        userInfo.setPassword(userInfo.getUserPassword());
         String password = PasswordUtils.generatePassword(userInfo.getUserPassword());
         userInfo.setUserPassword(password);
         userInfo.setOldVersion(userInfo.getVersion());
@@ -121,8 +123,9 @@ public class UserServices {
     public AppResponse listUsers(UserInfo userInfo) {
         PageHelper.startPage(userInfo.getPageNum(), userInfo.getPageSize());
         List<UserInfo> userInfoList = userDao.listUsers(userInfo);
+        System.out.println(userInfoList);
         if (userInfoList.size() == 0){
-            return AppResponse.notFound("未找到数据");
+            return AppResponse.notFound("未找到用户列表数据");
         }
         // 包装Page对象
         PageInfo<UserInfo> pageData = new PageInfo<UserInfo>(userInfoList);
